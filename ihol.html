@@ -1,0 +1,247 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>Proofgold: IHOL</title>
+    <style>
+      table, th, td {
+	  border: 1px solid black;
+	  border-collapse: collapse;
+	  margin-left: auto;
+	  margin-right: auto;
+      }
+    </style>
+  </head>
+<body>
+<h1>Intuitionistic Higher-Order Logic</h1>
+
+<p>
+The framework of proofgold is intuitionistic higher-order logic.
+This consists of a collection of simple types, simply typed terms
+and Curry-Howard style proof terms. A quick summary is given
+by the following grammar:
+
+<table>
+<tbody><tr>
+<td>Types (<i>&#945;</i>, <i>&#946;</i>)</td>
+<td>::=</td>
+<td>Prop | Base <i>n</i> | (<i>&#945;</i> &#8594; <i>&#946;</i>)</td>
+</tr>
+<tr>
+<td>Terms (<i>s</i>, <i>t</i>)</td>
+<td>::=</td>
+<td><i>x</i> | Prim <i>n</i>
+ | (<i>s</i> <i>t</i>) | (&#955; <i>x</i>:<i>&#945;</i> . <i>t</i>)
+ | (<i>s</i> &#8594; <i>t</i>) | (&#8704; <i>x</i>:<i>&#945;</i> . <i>t</i>)
+ | (&#8707; <i>x</i>:<i>&#945;</i> . <i>t</i>)
+ | (<i>s</i> =<sub><i>&#945;</i></sub> <i>t</i>)
+</td>
+</tr>
+<tr>
+<td>Proofs (<i>D</i>, <i>E</i>)</td>
+<td>::=</td>
+<td><i>u</i> | Known <i>s</i>
+ | (<i>D</i> <i>E</i>) | (<i>D</i> <i>t</i>)
+ | (&#955; <i>u</i>:<i>s</i> . <i>D</i>)
+ | (&#955; <i>x</i>:<i>&#945;</i> . <i>D</i>)
+ | (Ext <i>&#945;</i> <i>&#946;)</i>
+</td>
+</tr>
+</tbody></table>
+
+Here <i>n</i> ranges over natural numbers and <i>x</i> ranges over term variables
+and <i>u</i> ranges over proof variables.
+Technically, term variables and proof variables
+are de Bruijn indices in the implementation.
+</p>
+
+<p>
+In the implementation there is an additional term case that
+references a term by its hashroot. Also, the term in the Known
+proof case is always referenced by the hash root of the (allegedly)
+known proposition. A proposition can be known because it is an axiom
+of the current theory or if it has been proven in the theory.
+</p>
+
+<p>
+The last two term cases (&#8707; and =) are included only for convenience
+and as part of normalization &#8707; and = are expanded away as follows:
+
+<table>
+<tbody><tr>
+<td>(&#8707; <i>x</i>:<i>&#945;</i> . <i>s</i>)</td>
+<td>expands to</td>
+<td>(&#8704; <i>p</i>:Prop . (&#8704; <i>x</i>:<i>&#945;</i> . <i>s</i> &#8594; <i>p</i>) &#8594; <i>p</i>)</td>
+</tr>
+<tr>
+<td>(<i>s</i> =<sub><i>&#945;</i></sub> <i>t</i>)</td>
+<td>expands to</td>
+<td>(&#8704; <i>q</i>:<i>&#945;</i> &#8594; <i>&#945;</i> &#8594; Prop. <i>q</i> <i>s</i> <i>t</i> &#8594; <i>q</i> <i>t</i> <i>s</i>)</td>
+</tr>
+</tbody></table>
+</p>
+
+<p>
+The proof terms have the standard Curry Howard meaning.
+The last case (Ext <i>&#945;</i> <i>&#946;</i>)
+corresponds to functional extensionality.
+For two types <i>&#945;</i> and <i>&#946;</i>, 
+(Ext <i>&#945;</i> <i>&#946;</i>)
+is a proof term
+for
+(&#8704; <i>f</i> <i>g</i> : <i>&#945;</i> &#8594; <i>&#946;</i> . (&#8704; <i>x</i> : <i>&#945;</i> . <i>f</i> <i>x</i> =<sub><i>&#946;</i></sub> <i>g</i> <i>x</i>) &#8594; (<i>f</i> =<sub><i>&#945;</i> &#8594; <i>&#946;</i></sub> <i>g</i>)).
+</p>
+
+<h2>Specifying types, terms and proofs in Proofgold documents</h2>
+
+<p>
+Proofgold can read drafts of documents (and signatures and theories)
+using a basic "assembly" language (using prefix notation). See the commands
+<b>readdraft</b>, <b>commitdraft</b> and <b>publishdraft</b>.
+This assembly language is summarized below.
+</p>
+
+<h3>Types</h3>
+
+<p>
+If Base types will be used, then the text should
+declare names for them as follows:<br>
+Base <i>base<sub>0</sub></i><br>
+...<br>
+Base <i>base<sub>n-1</sub></i><br>
+After this types can be written as follows:<br>
+<table>
+<tbody><tr><th>Assembly</th><th>Informal</th></tr>
+<tr>
+<td>Prop</td><td>Prop</td>
+</tr>
+<tr>
+<td><i>base<sub>n</sub></i></td><td>Base <i>n</i></td>
+</tr>
+<tr>
+<td>
+TpArr <i>&#945;</i> <i>&#946;</i>
+</td>
+<td>
+(<i>&#945;</i> &#8594; <i>&#946;</i>)
+</td>
+</tr>
+</tbody></table>  
+</p>
+
+<h3>Terms</h3>
+<p>
+Closed terms that will be used often can be abbreviated
+by Let declarations, as follows:<br>
+Let <i>letname</i> : <i>&#945;</i> := <i>s</i><br>
+The Let declarations are completely transparent and
+are expanded away while reading the specification.
+</p>
+
+<p>
+Proper definitions are declared as follows:<br>
+Def <i>defname</i> : <i>&#945;</i> := <i>s</i><br>
+These definitions are associated with the hash root of the
+term <i>s</i> and this hash root is used when reading
+specified terms.
+</p>
+
+<p>
+Opaque definitions can also be declared by referencing the
+hash root. This assumes
+the definition has already been made and published in a
+previous document.<br>
+Param <i>hashroot</i> <i>defname</i> : <i>&#945;</i><br>
+</p>
+
+<p>
+Terms can be specified as follows:<br>
+<table>
+<tbody><tr><th>Assembly</th><th>Informal</th></tr>
+<tr>
+<td><i>letname</i></td>
+<td>(term declared using Let earlier)</td>
+</tr>
+<tr>
+<td><i>defname</i></td>
+<td>(term hash root declared using Def or Param earlier)</td>
+</tr>
+<tr>
+<td><i>x</i></td>
+<td><i>x</i> (local variable in the scope of &#955;, &#8704; or &#8707;)</td>
+</tr>
+<tr>
+<td>Prim <i>n</i></td>
+<td>Prim <i>n</i></td>
+</tr>
+<tr>
+<td>Ap <i>s</i> <i>t</i></td>
+<td>(<i>s</i> <i>t</i>)</td>
+</tr>
+<tr>
+<td>Lam <i>x</i> <i>&#945;</i> <i>t</i></td>
+<td>(&#955; <i>x</i> : <i>&#945;</i> . <i>t</i>)</td>
+</tr>
+<tr>
+<td>Imp <i>s</i> <i>t</i></td>
+<td>(<i>s</i> &#8594; <i>t</i>)</td>
+</tr>
+<tr>
+<td>All <i>x</i> <i>&#945;</i> <i>t</i></td>
+<td>(&#8704; <i>x</i> : <i>&#945;</i> . <i>t</i>)</td>
+</tr>
+<tr>
+<td>Ex <i>x</i> <i>&#945;</i> <i>t</i></td>
+<td>(&#8707; <i>x</i> : <i>&#945;</i> . <i>t</i>)</td>
+</tr>
+<tr>
+<td>Eq <i>&#945;</i> <i>s</i> <i>t</i></td>
+<td>(<i>s</i> =<sub><i>&#945;</i></sub> <i>t</i>)</td>
+</tr>
+</tbody></table>  
+</p>
+
+<h3>Proofs</h3>
+
+<p>
+Axioms and previously proven theorems can be locally declared as follows:<br>
+Known <i>knownname</i> : <i>s</i><br>
+The hash root of <i>s</i> is computed and checked to be in the collection
+of already known propositions.
+</p>
+
+<p>
+Proofs are specified as follows:<br>
+<table>
+<tbody><tr><th>Assembly</th><th>Informal</th></tr>
+<tr>
+<td><i>knownname</i></td>
+<td>(declared using Known earlier)</td>
+</tr>
+<tr>
+<td><i>u</i></td>
+<td><i>u</i> (proof variable in the scope of a &#955;)</td>
+</tr>
+<tr>
+<td>PrAp <i>D</i> <i>E</i></td>
+<td>(<i>D</i> <i>E</i>)</td>
+</tr>
+<tr>
+<td>TmAp <i>D</i> <i>t</i></td>
+<td>(<i>D</i> <i>t</i>)</td>
+</tr>
+<tr>
+<td>PrLa <i>u</i> <i>s</i> <i>D</i></td>
+<td>(&#955; <i>u</i> : <i>s</i> . <i>D</i>)</td>
+</tr>
+<tr>
+<td>TmLa <i>x</i> <i>&#945;</i> <i>D</i></td>
+<td>(&#955; <i>x</i> : <i>&#945;</i> . <i>D</i>)</td>
+</tr>
+<tr>
+<td>Ext <i>&#945;</i> <i>&#946;</i></td>
+<td>(Ext <i>&#945;</i> <i>&#946;</i>)</td>
+</tr>
+</tbody></table>
+</p>
+
+
+</body></html>

@@ -1,0 +1,361 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>Proofgold: Reward Bounty Propositions</title>
+  </head>
+<body>
+<h1>Reward Bounty Propositions</h1>
+
+<p>
+Until Block 5000 half of each block reward was placed as a bounty on a proposition.
+The proposition was pseudorandomly determined from a seed
+determined by the litecoin transaction id of the previous burn
+transaction and the litecoin block id in which that transaction was confirmed.
+All the propositions are within the <a href="hohf.html">HOHF</a> theory of hereditarily finite sets
+described here.
+</p>
+
+
+<p>A collection of the first ten reward bounty propositions (determined 
+by the first ten Proofgold blocks) in different formats is available <a href="firsttenbounties.tgz">here</a></p>
+
+<p>
+The propositions fall into twelve classes which we group into eight sections below.
+In some cases the attempt to construct a propositon may fail.
+In that case, the last class (Diophantine problems) are used as a fallback.
+</p>
+
+<h2>Random HF</h2>
+
+<p>
+There are three clases of random propositions related to
+hereditarily finite.
+The propositions in this class are all first-order,
+although higher-order axioms of the theory may be required
+to construct a proof.
+
+</p><ul>
+<li><b>HF1</b>: A first-order proposition is constructed using
+(some of) the first-order relations and functions from the <a href="hohf.html">HOHF</a> theory.
+</li>
+<li><b>HF2</b>: This is similar to HF1, except additionally an
+uninterpreted unary predicate and uninterpreted unary function
+may occur in the proposition.
+</li>
+<li><b>HF3</b>: A first-order proposition is constructed using
+several uninterpreted constrants, a unary function, two unary predicates,
+a binary relation and a binary predicate.
+For the most part, constants of the <a href="hohf.html">HOHF</a> theory are not used
+in this proposition.
+</li>
+</ul>
+<p></p>
+
+<h2>QBF</h2>
+
+<p>
+A QBF (quantified boolean formula) proposition is created
+starting with a quantifier prefix of between 50 and 55 quantifiers
+followed by an equivalence between two propositions using
+all the quantified variables. The two propositions are constructed
+using equivalence, implication, negation and false.
+</p>
+
+<h2>Set Constraints</h2>
+
+<p>
+A set constraint problem asserts that there are not
+four predicates (of types like &#953; &#8594; ... &#953; &#8594; o)
+satisfying eight set constraints. A set constraint
+for a predicate variable <i>P</i>
+has a form like (&#8704; x y z w . <i>s</i> &#8594; <i>P</i> <i>t<sub>1</sub></i> ...  <i>t<sub>n</sub></i>)
+or (&#8704; x y z w . <i>P</i> <i>t<sub>1</sub></i> ...  <i>t<sub>n</sub></i> &#8594; <i>s</i>).
+</p>
+
+<p>
+If there is a solution to the set constraint problem
+the negation of the proposition can be proven by assuming there
+is no solution and then using the solution to prove a contradiction.
+</p>
+
+<h2>Higher-Order Unification</h2>
+
+<p>
+A higher-order unification problem is a proposition stating
+there is no solution for four higher-order variables
+satisfying eight flex-rigid pairs. A flex-rigid pair is of
+the form 
+(&#8704; x y z w . <i>F</i> <i>t<sub>1</sub></i> ...  <i>t<sub>n</sub></i> = <i>s</i>)
+where <i>F</i> is one of the variables to solve for and the head
+of <i>s</i> is not one of the variables to solve for.
+</p>
+
+<p>
+If there is a solution to the unification problem
+the negation of the proposition can be proven by assuming there
+is no solution and then using the solution to prove a contradiction.
+</p>
+
+<h2>Untyped Combinator Unification</h2>
+
+<p>
+An untyped combinator unification problem
+is a proposition saying there are not four
+combinators satisfying eight flex-rigid pairs.
+HF sets are used to represent (untyped) combinators.
+Specific (distinct) sets are used to represent the
+combinator S, the combinator K, and the application
+of two combinators. The predicate recognizing combinators
+is built into the <a href="hohf.html">HOHF</a> theory using defined primitive
+101 [combinator].
+The equivalence relation given by S and K reduction is
+built into the <a href="hohf.html">HOHF</a> theory using defined primitive
+102 [combinator_equiv].
+</p>
+
+<h2>Abstract HF Problems</h2>
+
+<p>
+A collection of 1229 specific first-order propositions
+are in the array ahfprops in checking.ml.
+These are within a context of 24 constants,
+functions, predicates and relations (see ahfctx in checking.ml).
+If the 24 variables in context are fixed to be certain
+values in <a href="hohf.html">HOHF</a>, then the propositions are true statements.
+That is, each proposition is the abstract version of
+a concrete first-order theorem of <a href="hohf.html">HOHF</a>.
+</p>
+
+<p>
+An abstract HF Problem chooses one of the 1229 as a conclusion
+and selects roughly 76 of the remaining 1228 as premises
+and forms the proposition asserting the conclusion follows from
+the premises. To be more precise each of the other 1228 propositions
+has a 1 in 16 chance of being included as a premise.
+</p>
+
+<h2>AIM Conjecture Related Problems</h2>
+
+<p>
+Two classes of problems are related to the AIM Conjecture,
+an open problem in mathematics. To support these propositions
+the following primitives are built into the <a href="hohf.html">HOHF</a> theory:
+
+</p><ul>
+<li>
+Primitive 96 [binop_on]: binop_on <i>X</i> <i>f</i> means
+<i>f</i> is a binary operator on a set <i>X</i>.
+Here <i>f</i> has type &#953;&#8594;&#953;&#8594;&#953;.
+That is, <i>f</i> is not itself encoded as a set.
+</li>
+<li>
+Primitive 97 [Loop]: Loop <i>X</i> <i>m</i> <i>b</i> <i>s</i> <i>e</i>
+means <i>m</i>, <i>b</i> and <i>s</i> are binary operations on <i>X</i>
+satisfying the loop axioms (with <i>e</i> as identity) <b>(Warning: This definition has a serious bug. The condition that <i>e</i> is in <i>X</i> is missing.)</b>:
+<i>m e x = x</i>,
+<i>m x e = x</i>,
+<i>m x (b x y) = y</i>,
+<i>b x (m x y) = y</i>,
+<i>m (s x y) y = x</i>
+and
+<i>s (m x y) y = x</i>.
+</li>
+<li>
+Primitive 98 [Loop_with_defs]: Loop_with_defs <i>X</i> <i>m</i> <i>b</i> <i>s</i> <i>e</i> <i>K</i> <i>a</i> <i>T</i> <i>L</i> <i>R</i> <i>I1</i> <i>J1</i> <i>I2</i> <i>J2</i>
+means Loop <i>m</i> <i>b</i> <i>s</i> <i>e</i> holds
+and the following defining equations hold:
+<ul>
+<li><i>K</i> <i>x</i> <i>y</i> = <i>b</i> (<i>m</i> <i>y</i> <i>x</i>) (<i>m</i> <i>x</i> <i>y</i>))
+</li>
+<li><i>a</i> <i>x</i> <i>y</i> <i>z</i> = <i>b</i> (<i>m</i> <i>x</i> (<i>m</i> <i>y</i> <i>z</i>)) (<i>m</i> (<i>m</i> <i>x</i> <i>y</i>) <i>z</i>))
+</li>
+<li><i>T</i> <i>x</i> <i>u</i> = <i>b</i> <i>x</i> (<i>m</i> <i>u</i> <i>x</i>)
+</li>
+<li><i>I1</i> <i>x</i> <i>u</i> = <i>m</i> <i>x</i> (<i>m</i> <i>u</i> (<i>b</i> <i>x</i> <i>e</i>))
+</li>
+<li><i>J1</i> <i>x</i> <i>u</i> = <i>m</i> (<i>m</i> (<i>s</i> <i>e</i> <i>x</i>) <i>u</i>) <i>x</i>
+</li>
+<li><i>I2</i> <i>x</i> <i>u</i> = <i>m</i> (<i>b</i> <i>x</i> <i>u</i>) (<i>b</i> (<i>b</i> <i>x</i> <i>e</i>) <i>e</i>)
+</li>
+<li><i>J2</i> <i>x</i> <i>u</i> = <i>m</i> (<i>s</i> <i>e</i> (<i>s</i> <i>e</i> <i>x</i>)) (<i>s</i> <i>u</i> <i>x</i>))
+</li>
+<li><i>L</i> <i>x</i> <i>y</i> <i>u</i> = <i>b</i> (<i>m</i> <i>y</i> <i>x</i>) (<i>m</i> <i>y</i> (<i>m</i> <i>x</i> <i>u</i>))
+</li>
+<li><i>R</i> <i>x</i> <i>y</i> <i>u</i> = <i>s</i> (<i>m</i> (<i>m</i> <i>u</i> <i>x</i>) <i>y</i>) (<i>m</i> <i>x</i> <i>y</i>)
+</li>
+</ul>
+Here <i>K</i> gives the commutator of two elements (which is the identity
+if the two elements commute) and <i>a</i> gives the associator of three elements.
+The remaining operators construct inner mappings given one or two parameters.
+A loop is an AIM loop if all inner mappings commute.
+</li>
+<p></p>
+
+<p>
+If the AIM conjecture is true, the following
+two identities must hold in all AIM loops:
+</p><ul>
+<li>
+<i>K</i> (<i>m</i> (<i>b</i> (<i>L</i> <i>x</i> <i>y</i> <i>u</i>) <i>e</i>) <i>u</i>) <i>w</i> = <i>e</i>
+</li>
+<li>
+<i>a</i> <i>w</i> (<i>m</i> (<i>s</i> <i>e</i> <i>u</i>) (<i>R</i> <i>x</i> <i>y</i> <i>u</i>)) <i>z</i> = <i>e</i>
+</li>
+</ul>
+The next two primitives are predicate recognizing loops
+with a counterexample to one of these identities.
+<li>
+Primitive 99 [Loop_with_defs_cex1]: 
+Loop_with_defs_cex1 <i>X</i> <i>m</i> <i>b</i> <i>s</i> <i>e</i> <i>K</i> <i>a</i> <i>T</i> <i>L</i> <i>R</i> <i>I1</i> <i>J1</i> <i>I2</i> <i>J2</i>
+means
+Loop_with_defs <i>X</i> <i>m</i> <i>b</i> <i>s</i> <i>e</i> <i>K</i> <i>a</i> <i>T</i> <i>L</i> <i>R</i> <i>I1</i> <i>J1</i> <i>I2</i> <i>J2</i>
+holds and there
+exist elements <i>u</i>, <i>x</i>, <i>y</i> and <i>w</i> of <i>X</i>
+such that
+<i>K</i> (<i>m</i> (<i>b</i> (<i>L</i> <i>x</i> <i>y</i> <i>u</i>) <i>e</i>) <i>u</i>) <i>w</i> &#8800; <i>e</i>.
+</li>
+<li>
+Primitive 100 [Loop_with_defs_cex2]: 
+Loop_with_defs_cex2 <i>X</i> <i>m</i> <i>b</i> <i>s</i> <i>e</i> <i>K</i> <i>a</i> <i>T</i> <i>L</i> <i>R</i> <i>I1</i> <i>J1</i> <i>I2</i> <i>J2</i>
+means
+Loop_with_defs <i>X</i> <i>m</i> <i>b</i> <i>s</i> <i>e</i> <i>K</i> <i>a</i> <i>T</i> <i>L</i> <i>R</i> <i>I1</i> <i>J1</i> <i>I2</i> <i>J2</i>
+holds and there
+exist elements <i>u</i>, <i>x</i>, <i>y</i>, <i>z</i> and <i>w</i> of <i>X</i>
+such that
+<i>a</i> <i>w</i> (<i>m</i> (<i>s</i> <i>e</i> <i>u</i>) (<i>R</i> <i>x</i> <i>y</i> <i>u</i>)) <i>z</i> &#8800; <i>e</i>
+</li>
+</ul>
+<p></p>
+
+<p>
+The two classes of AIM propositions for reward bounties are based on
+the two kinds of counterexample types.
+In each case the proposition says
+that every loop for which some collection of inner mappings commute
+and (possibly) some collection of inner mappings have a small order
+(dividing 2, 3, 4 or 5) does not have one of the two types of
+counterexamples.
+To be more precise,
+the proposition says that False follows from
+the assumption
+Loop_with_defs_cex1 <i>X</i> <i>m</i> <i>b</i> <i>s</i> <i>e</i> <i>K</i> <i>a</i> <i>T</i> <i>L</i> <i>R</i> <i>I1</i> <i>J1</i> <i>I2</i> <i>J2</i>
+or
+Loop_with_defs_cex2 <i>X</i> <i>m</i> <i>b</i> <i>s</i> <i>e</i> <i>K</i> <i>a</i> <i>T</i> <i>L</i> <i>R</i> <i>I1</i> <i>J1</i> <i>I2</i> <i>J2</i>
+and the extra assumptions that some inner mappings commute and some
+inner mappings have small orders.
+</p>
+
+<p>
+The propositions are (generally) not equivalent to the AIM conjecture.
+The assumption that some inner mappings commute will not generally imply
+all inner mappings commute, allowing for non-AIM loops as counterexamples
+(to prove negated propositions).
+Likewise not all AIM loops will satisfy the extra conditions that
+certain inner mappings have a small order, so in some cases
+these extra conditions will allow us to prove the proposition
+without proving the AIM Conjecture itself.
+</p>
+
+<h2>Diophantine Problems</h2>
+
+<p>
+The final two classes of problems are inspired by Diophantine equations
+(see Hilbert's tenth problem).
+In each case two polynomials in three unknowns <i>x</i>, <i>y</i> and <i>z</i>
+are generated. The exponents range from 0 to 3, so that
+there are (at most) 64 monomials in each polynomial.
+The coefficent for each monomial ranges from 0 to 15.
+</p>
+
+<p>
+The class of Diophantine-Modulo problems 
+includes propositions that state there is no solution
+to the equation <i>p</i> + 16 = <i>q</i> modulo <i>m</i>
+where 
+<i>p</i> and <i>q</i> are polynomials as described above
+and <i>m</i> is a number between 2 and 2<sup>60</sup>.
+</p>
+
+<p>
+The class of Diophantine problems
+includes propositions that state there is no solution to
+the equation
+<i>p</i> + 16 = <i>q</i>
+or inequality
+<i>p</i> + 16 &#8804; <i>q</i>.
+</p>
+
+<p>
+Technically, integers are not used to formulate these propositions,
+but cardinality of sets.
+Specific numbers are represented as sets known to have the
+corresponding cardinality. The construction of such sets is
+supported by the following primitives of the theory:
+
+</p><ul>
+<li>Primitive 9 [Empty] : The empty set has cardinality 0.</li>
+<li>Primitive 11 [Power] : Power <i>X</i> has cardinality 2<sup>n</sup> if <i>X</i> has cardinality <i>n</i>.</li>
+<li>Primitive 71 [binrep] : binrep <i>X</i> <i>Y</i> has cardinality <i>m</i> + 2<sup>n if <i>X</i> and <i>Y</i> have cardinality <i>m</i> and <i>n</i>, respectively.</sup></li>
+</ul>
+<p></p>
+
+<p>
+Addition and multiplication correspond to disjunction unions
+and products of sets:
+
+</p><ul>
+<li>Primitive 68 [setsum] : setsum <i>X</i> <i>Y</i>
+has cardinality <i>m</i> + <i>n</i> if <i>X</i> and <i>Y</i> have cardinality <i>m</i> and <i>n</i>, respectively.</li>
+<li>Primitive 73 [setprod] : setprod <i>X</i> <i>Y</i>
+has cardinality <i>m</i> * <i>n</i> if <i>X</i> and <i>Y</i> have cardinality <i>m</i> and <i>n</i>, respectively.</li>
+</ul>
+<p></p>
+
+<p>
+Instead of the &#8804; relation, we
+use the existence of an injection:
+
+</p><ul>
+<li>Primitive 51 [inj]: inj <i>X</i> <i>Y</i> <i>f</i>
+means <i>f</i> is an injection from <i>X</i> into <i>Y</i>.
+</li>
+<li>Primitive 53 [atleastp]: atleastp <i>X</i> <i>Y</i>
+means there is an injection from <i>X</i> into <i>Y</i>.
+</li>
+</ul>
+<p></p>
+
+<p>
+Instead of equality, we use equipotence:
+
+</p><ul>
+<li>Primitive 52 [bij]: bij <i>X</i> <i>Y</i> <i>f</i>
+means <i>f</i> is a bijection from <i>X</i> into <i>Y</i>.
+</li>
+<li>Primitive 54 [equip]: equip <i>X</i> <i>Y</i>
+means there is a bijection from <i>X</i> into <i>Y</i>.
+</li>
+</ul>
+<p></p>
+
+<p>
+For equality modulo a number, we use the following:
+
+</p><ul>
+<li>Primitive 103 [equip_mod] : equip_mod <i>X</i> <i>Y</i> <i>M</i>
+means there exist sets <i>Z</i> and <i>V</i> such that
+either 
+equip (setsum <i>X</i> <i>Z</i>) <i>Y</i>
+and
+equip (setprod <i>V</i> <i>Z</i>) <i>M</i>
+or
+equip (setsum <i>Y</i> <i>Z</i>) <i>X</i>
+and
+equip (setprod <i>V</i> <i>Z</i>) <i>M</i>.
+Intuitively, <i>Z</i> is the difference of <i>X</i> and <i>Y</i>
+and <i>V</i> witness that this difference divides the modulus.
+</li></ul>
+<p></p>
+
+
+
+</body></html>

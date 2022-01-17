@@ -1,0 +1,71 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>Proofgold: Publishing</title>
+  </head>
+<body>
+<h1>Publishing Documents and Collecting Bounties</h1>
+
+<p>A document is specified by a text file where the first
+line has the form:<br>
+Document <i>theoryid</i><br>
+The <a href="hohf.html">HOHF theory</a> (for all <a href="rewardbounties.html">reward bounties</a>) has id
+  6ffc9680fbe00a58d70cdeb319f11205ed998131ce51bb96f16c7904faf74a3d
+  so the first line for documents in this theory would be:<br>
+Document 6ffc9680fbe00a58d70cdeb319f11205ed998131ce51bb96f16c7904faf74a3d<br>
+</p>
+
+<p>The remaining lines are declarations of
+local base type names (via Base),
+local abbreviations (via Let),
+transparent definitions (via Def),
+opaque definitions (via Param),
+imported known propositions (via Known)
+and proven theorems (via Thm).
+More information on the assembly style format
+for this file can be found <a href="ihol.html">here</a>.
+</p>
+
+<p>The command <b>readdraft</b> can be used to check
+correctness of the file.
+Upon publication the publisher will be given ownership of
+new definitions
+and newly proven propositions.
+If the proposition (or its negation) has a bounty,
+then the new owner will be able to claim the bounty.
+</p>
+
+<p>Once the file with the document is prepared for publication,
+the commands <b>addnonce</b> and <b>addpublisher</b> can be used
+to include a nonce (so the hash of the document gives
+no information about the document before it is published)
+and a Proofgold address for the publisher.
+The publisher can also optionally include information
+about rights for future users to be able to import
+opaque defitions and knowns. By default all users
+will have the right to make such imports.
+</p>
+
+<p>The command <b>commitdraft</b> creates a transaction that
+will publish a <b>marker</b> that commits to the current
+version of the documents. The document itself can
+only be published after the commitment transaction
+has been sent and has 12 confirmations.
+If the document is modified after the commitment is
+published, a new commitment will need to be published.
+</p>
+  
+<p>After the commitment has 12 confirmations,
+the command <b>publishdraft</b> creates a publication transaction.
+This transaction will also assign the new ownership
+information (with corresponding policy on rights to future imports).
+</p>
+  
+<p>After the document has been published, the publisher
+may have ownership of propositions with bounties.
+The command <b>collectbounties</b> can be used to
+ccreate a transaction to collect
+all bounties possible.</p>
+
+
+
+</body></html>

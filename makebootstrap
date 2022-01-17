@@ -1,0 +1,8 @@
+#!/bin/bash
+cd /var/www/html/bootstrap
+cp /home/pfg/.proofgold/lastltcblock lastltcblock
+rm -rf db
+cp -r /home/pfg/.proofgold/db db
+du -a db > dua
+chmod a+r dua lastltcblock
+chmod -R a+rx db

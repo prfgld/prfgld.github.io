@@ -1,0 +1,90 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>Proofgold: Consensus</title>
+  </head>
+  <body>
+    <h1>Consensus and How to Stake</h1>
+<p>Proofgold uses the litecoin blockchain as an integral part of
+its consensus algorithm, and so proofgold must be run in conjunction
+with a litecoin node. A node "mines" a proofgold block by burning
+some litecoins in a specially formed litecoin burn transaction.
+This burn transaction records information about the state of the
+proofgold blockchain. Proofgold blocks may also be staked by
+combining some proofgold bars in the node's wallet with some burned
+litecoins. A difficulty adjustment algorithm targets one proofgold
+block per hour.</p>
+
+<p>There is a hard limit of 21 million on the number of proofgold bars
+that will be created. This is accomplished by issuing a block reward
+of 50 bars for the first 210,000 blocks, with the reward halving
+every 210,000 blocks. Each block has a special coinstake transaction
+sending half the block reward to the staker of the block and
+the other half as a bounty to a pseudorandomly determined proposition.
+This bounty can be claimed by the first person (presumably with
+an automated theorem prover) to publish a proof of the theorem or
+a proof of its negation into the proofgold blockchain.</p>
+
+<p>For more details on reward bounty propositions, see <a href="rewardbounties.html">here</a>.</p>
+
+<p>For more information on how to publish proofs, see <a href="publishing.html">here</a>.</p>
+
+<p>The following steps explain how to set up a node to stake.</p>
+
+<ol>
+<li>Run a litecoin node with txindex=1 and RPC support.
+The litecoin.conf file should look something like this:<br>
+<textarea>txindex=1
+server=1
+rpcuser=litecoinrpcusername
+rpcpassword=replacewithrealpassword
+rpcallowip=127.0.0.1
+</textarea>
+</li>
+<li> Create a litecoin segwit address, e.g., using an RPC call
+like this:<br>
+getnewaddress pfg bech32.<br>
+Send some litecoins you intend to burn to this segwit address.
+</li>
+<li>Install proofgold.<br>
+See the proofgold README for more information on this step.
+</li>
+<li>In the proofgold data directory (probably .proofgold in your
+home directory) put a proofgold.conf file with lines like these:<br>
+<textarea>ltcrpcuser=litecoinrpcusername
+ltcrpcpass=replacewithrealpassword
+ltcrpcport=9332
+ltcaddress=yourltcsegwitaddress
+staking=1
+maxburn=maximum_number_of_litoshis_to_burn_at_once
+</textarea>
+If you run proofgold behind tor you may need to tell
+proofgold to use socks and to use curl with socks. For example you can include
+these lines in the proofgold.conf file:<br>
+<textarea>socks=4
+curl=/usr/bin/curl --socks4 127.0.0.1:9050
+</textarea>
+</li>
+<li>Run proofgold.
+</li>
+</ol>
+
+<p>Some important proofgold commands:</p>
+
+<ul>
+<li><b>ltcstatus</b> shows an outline of the proofgold blocks from
+the past week, with the first block being shown being the current best
+block. This is a convenient way to check if your node is synced
+with the proofgold network.
+</li>
+<li><b>getpeerinfo</b> shows current connections to the network
+</li>
+<li><b>nextstakingchances</b> indicates the next time the node will be able
+to stake (with various burn amounts) for the next few hours,
+assuming no one else creates a block in the meantime.
+</li>
+<li><b>printassets</b> shows the assets in your wallet.
+</li>
+</ul>
+
+
+</body></html>

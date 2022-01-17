@@ -1,0 +1,118 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>Installation Guide for Proofgold on Debian</title>
+<style>
+  img {
+      margin: 2px;
+      border: 5px solid #000;
+  }
+</style>
+  </head>
+  <body>
+    <p>Here we give a step-by-step guide for installing and running 
+Proofgold Core on a 64-bit Debian machine. Similar steps should work for
+ other linux systems.</p>
+    <p><b>Step 0.</b> Run a litecoin node. We will not describe this 
+here, except to say the litecoin.conf file should contain lines giving 
+values for rpcuser and rpcpass. Make sure the rpcpass is secure or 
+someone may be able to control your litecoin node (spending any 
+litecoins there to themselves). It is best practice to only allow local 
+access to the litecoin node by including rpcallowip=127.0.0.1 in the 
+litecoin.conf file. It is also possible to run litecoin and proofgold on
+ different machines in which case an rpcallowip entry giving the ip of 
+the proofgold node should be included in litecoin.conf.</p>
+    <p><b>Step 1.</b> Install the prerequisites. You will need to do this with superuser privileges.<br><br>
+    <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/apt-get-installdeps1.png"><br><br>
+    </p>
+    <p><b>Step 2.</b> Get and install the latest Zarith library for 
+ocaml. In the screenshot below the make install may require superuser 
+privileges. It is also possible to install Proofgold with a local 
+installation of Zarith, though this may require editing the Proofgold 
+Makefile (see Makefile.in) to give the path to Zarith.<br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/wget-zarith.png"><br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/tarxzvfzarith.png"><br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/Zarith-configure.png"><br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/zarithmake.png"><br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/zarithmakeinstall.png"><br><br>
+    </p>
+    <p><b>Step 3.</b> Get the latest version of Proofgold Core from <a href="">proofgold.org</a> and untar it. The screenshots below are for Proofgold 0.2.1, but make sure to get version 0.2.3 or later.<br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/wget-pfg.png"><br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/tarxzvfpfg.png"><br><br>
+    </p>
+    <p><b>Step 4.</b> Configure Proofgold by calling the configure 
+script. This will create a .proofgold directory in your home directory. 
+If you want the directory to be somewhere else, give the alternate 
+location by calling configure with <b>-datadir=</b><i>fullpath</i>.<br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/pfgconfigure.png"><br><br>
+    </p>
+    <p><b>Step 5.</b> Call make to compile Proofgold and create the proofgold (and proofgoldcli) executables.<br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/pfgmake.png"><br><br>
+      If for some reason your system does not have make, you may be able
+ to use the script makebytecode or the script makevmbytecode.
+      In some cases the compilation will complain about an inability to 
+find Zarith. In that case <b>+zarith</b> must be replaced with a full path to the location of Zarith.
+    </p>
+    <p><b>Step 6.</b> Create and edit a proofgold.conf file in your .proofgold data directory.<br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/editproofgoldconf.png"><br><br>
+      You will need to include the rpc information for the litecoin node by giving lines of the form<br><br>
+      <b>ltcrpcuser=</b><i>ltc rpc username</i><br>
+      <b>ltcrpcpass=</b><i>ltc rpc password</i><br>
+      If you want your Proofgold node to listen for incoming connections put the ip address on a line of the form<br><br>
+      <b>ip=</b><i>ip address</i><br>
+      There are many other optional configuration parameters, e.g., to 
+control the maximum number of connections, whether the node is staking 
+and whether the node is making atomic swaps with litecoin. We do not 
+discuss these here to keep the guide brief.
+    </p>
+    <p><b>Step 7.</b> Start Proofgold for the first time.
+      With the default settings, Proofgold will use a recent bootstrap 
+(found by looking for bootstrap alert messages broadcast as ltc 
+transactions) to populate the database. This process may take an hour or
+ two. If it fails or you need to interrupt it, remove completely the 
+directory db in the .proofgold directory and try again.<br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/pfgfirstrun.png"><br><br>
+      An alternative to relying on the bootstrap is to add the following line to proofgold.conf:<br><br>
+      <b>independentbootstrap=1</b><br><br>
+	This is more secure since your node will download and check the 
+blockchain so far step by step, but it is likely to take a long time to 
+sync with the network.
+    </p>
+    <hr>
+    After passing the initialization phase, you will be in a console in 
+which Proofgold commands can be executed. (Proofgold can also be run as a
+ daemon by giving the -daemon command line argument. If Proofgold is run
+ as a daemon, the commands are given via rpc calls using proofgoldcli.)
+    A useful first command is <b>ltcstatus</b>.<br><br>
+    <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/pfgpostinit1.png"><br><br>
+    <p><b>ltcstatus</b> This shows the outline of all Proofgold blocks burned into the Litecoin blockchain in the past week.
+      The first lines printed after <b>ltcstatus</b> will either start with <b>+</b>, <b>*</b> or <b>-</b>. If they start with <b>+</b>, your node is in sync, i.e., has the latest blocks and has validated them. If the lines start with <b>*</b>, then some recent blocks are still being requested from peers or validated. In the unusual case some lines start with <b>-</b>, then some invalid blocks have recently been created.<br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/ltcstatus.png"><br>
+    </p>
+    <p><b>getpeerinfo</b> The command <b>getpeerinfo</b> gives information about connections to other peers.<br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/getpeerinfo.png"><br><br>
+    </p>
+    <p><b>printassets</b> Once your node is in sync, the command <b>printassets</b> should show any assets controlled by your wallet.<br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/printassets.png"><br><br>
+    </p>
+    <p><b>reportowned</b> The command <b>reportowned</b> creates a file 
+listing all currently objects and propositions. This corresponds to 
+which definitions have been made and which theorems have been proven. In
+ the case below the created file is called <b>owneduptonow</b>.<br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/reportowned.png"><br><br>
+      In a shell we can count the lines, giving a rough estimate of how 
+many objects have been defined and how many theorems have been proven. 
+The number of lines is roughly double the sum of the number of objects 
+defined and the number of theorems proven.<br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/wcowneduptonow.png"><br><br>
+      To see more specific information:<br><br>
+      <img src="Installation%20Guide%20for%20Proofgold%20on%20Debian_files/moreowneduptonow.png"><br><br>
+    </p>
+    There are many other commands. The command <b>help</b> lists them. The command <b>help</b> <i>command</i> gives more information about a specific command.
+    In case of trouble note that there is a <b>debug.log</b> file in the
+ .proofgold data directory.
+    Also, it is possible to register an pseudonymous identity with 
+proofgold.org and post to the forum from within the proofgold node. If 
+you need further help, feel free to post your questions to the forum.
+  
+
+</body></html>
