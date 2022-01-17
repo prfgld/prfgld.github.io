@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Reward Bounties via Smart Contract with Veto Clause - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="first" href="120.html" />
+<link rel="prev" href="120.html" />
+<link rel="last" href="125.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=120" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=120#p121" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Reward Bounties via Smart Contract with Veto Clause</h1>
+<p class="author">by <strong><span class="mod registered_user" title="Moderator">BlakeKeiller</span></strong><span class="interpunction">, </span>Monday, December 07, 2020, 15:15 <span class="ago">(363 days ago)</span> <span class="op-link"><a href="120.html" title="click to go to the original posting by BlakeKeiller">@ BlakeKeiller</a></span></p>
+<p>The hard fork at Block 5000 (estimated to happen near Christmas) will stop creating 25 bar bounties at random propositions. There was a discussion period in October, but no clear agreement on what to replace it with. In the end I decided to spend 10000 blocks (about a year) with the new 25 bars intended to be bounties at each block to be controlled by an address for which I have the private key. I would decide what (meaningful) propositions to place the bounties on, hopefully with input from others in the community.</p>
+<p>There has been some resistance to this option because it obviously places too much power in my hands. An option suggested and implemented since the last release candidate is to send the new 25 bars to a smart contract with a veto clause. After a staker creates a new block, the staker will have 48 blocks to &quot;veto&quot; allowing me to collect the 25 bars for the reward bounty fund. If someone vetos, they should send 25 bars to a proposition of their choice. After 48 blocks, I can collect the 25 bars for the reward bounty fund and use it to place bounties on propositions of my choice.</p>
+<p>There are ways this could go wrong.</p>
+<p>It is easy to create a theorem that can only be proven by a specific person. For example, the theorem could say &quot;there exists an x such that sha256(x) = y.&quot; Only someone who knows x can prove the theorem. Creating a bounty at a proposition like this is a roundabout way of sending the funds to yourself while technically complying with the obligation to create a bounty.</p>
+<p>I cannot define what a &quot;meaningful proposition&quot; is, but propositions like existence of preimages of hashes do not qualify as &quot;meaningful&quot;.</p>
+<p>If stakers (including me) were to start placing bounties on &quot;meaningless propositions&quot; (or gaming the system in some other unforeseen way), this should be clear by auditing the proofs published into the blockchain. I know I won't (purposefully) create bounties on meaningless propositions, but I will make it a point to explain and make public what propositions I am putting bounties on so that it is clear to others who want to audit what is happening. Likewise, if someone vetos the bounty fund and places bounties on propositions, they should post to the forum explaining what the propositions are. (It is possible to post to the forum from the software anonymously.)</p>
+<p>In case someone wants to veto and place a bounty on a proposition they don't need to explain or justify, they can take the propositions from Mizar's MML and HOL4 proposed by Brown here:</p>
+<p><a href="https://proofgold.org/forum/index.php?id=101">https://proofgold.org/forum/index.php?id=101</a></p>
+<p>Small files with the names of the problems and the correspond Proofgold address are here:</p>
+<p><a href="https://proofgold.org/mizar40_candidates.txt">https://proofgold.org/mizar40_candidates.txt</a></p>
+<p><a href="https://proofgold.org/hol4_candidates.txt">https://proofgold.org/hol4_candidates.txt</a></p>
+<p>As long as users choose to put bounties on one of these addresses (assuming the proposition has not yet been proven) there is no need to justify choosing the address for the bounty.</p>
+<p>To be concrete there is a new command vetobountyfund that can be simply used like this:</p>
+<p>vetobountyfund &lt;blockid&gt; &lt;address&gt;</p>
+<p>The easiest way to use it is to choose an address from the files linked above. The command should take care of placing a bounty of 25 bars (minus transaction fees) at the address.</p>
+<p>Of course, a simpler possibility is that stakers simply veto to collect the 25 bars and not place a bounty at all. If this starts happening with a small staker, we can quickly modify the code to start orphaning all blocks created by that staker. If it starts happening with a large staker, then we will have to have a serious discussion about the future of the network.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=121&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">473 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=120" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><a class="thread" href="120.html">Proofgold 0.2.1(rc3)</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p120" class="tail">2020-12-07, 15:10 <a href="index.php?mode=thread&amp;id=120" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><span class="currentreply">Reward Bounties via Smart Contract with Veto Clause</span> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p121" class="tail">2020-12-07, 15:15</span>
+</li>
+
+<li><a class="reply" href="122.html">Rebranding Client as Proofgold Core</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p122" class="tail">2020-12-07, 15:17</span>
+</li>
+
+<li><a class="reply" href="123.html">New Configuration Parameters</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p123" class="tail">2020-12-07, 15:19</span>
+</li>
+
+<li><a class="reply" href="124.html">Atomic Swaps with Litecoin (Faucet and Initial Market)</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p124" class="tail">2020-12-07, 15:30</span>
+<ul class="reply">
+<li><a class="reply" href="125.html">Atomic Swaps with Litecoin (Faucet and Initial Market)</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p125" class="tail">2020-12-07, 15:30</span>
+</li>
+</ul></li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 6 users online (0 registered, 6 guests)<br />
+Forum time: 2021-12-05, 11:20 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Megalodon 1.5 - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=153" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=153#p153" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Megalodon 1.5</h1>
+<p class="author">by <strong><span class="registered_user">Brown</span></strong><span class="interpunction">, </span>Sunday, February 21, 2021, 16:30 <span class="ago">(287 days ago)</span></p>
+<p>Here is Megalodon 1.5: <a href="http://grid01.ciirc.cvut.cz/~chad/megalodon-1.5.tgz">http://grid01.ciirc.cvut.cz/~chad/megalodon-1.5.tgz</a></p>
+<p>There are new options -fof and -th0 to create fof and th0 problems for ATPs whenever a proof or subproof is justified by Admitted or admit. The th0 problems contain all known results and hypotheses in context. The fof problems only contain first-order known results and hypotheses and are only generated with the conclusion is first-order. If the ATP finds a proof, it is still up to the user to inspect the ATP proof and translate it to a Megalodon proof.</p>
+<p>I also fixed some bugs in the Dieudonne_2_2 file from Megalodon 1.4. Some of these were pointed out by Blake (thanks for proofreading!). One bug was found by E prover ( <a href="http://eprover.org">http://eprover.org</a> ) when I was testing the new -fof option. E claimed to find proofs that should've been too difficult for it. Looking into the details it was using the (unproven) versions of 2.2.3 from Dieudonne. Let me quote (2.2.3) from Dieudonne's book:</p>
+<p>&quot;Any finite subset A of R has a greatest element b and a smallest element a (i.e., a &lt;= x &lt;= b for every x in A).&quot;</p>
+<p>I formalized this as two conjectures:</p>
+<p>Theorem Dieudonne_2_2_3a: forall A c= R, finite A -&gt; exists a :e A, forall x :e A, a &lt;= x.<br />
+Admitted.</p>
+<p>Theorem Dieudonne_2_2_3b: forall A c= R, finite A -&gt; exists b :e A, forall x :e A, x &lt;= b.<br />
+Admitted.</p>
+<p>I think it's fair to say that these correspond to what Dieudonne wrote. However, they are clearly not what Dieudonne meant. In contexts where E had either of these as a previous result to use, it applied it with the empty set for A. That's clearly finite. And if it had a smallest or greatest element it would contradict the fact that the empty set is empty! I don't want to speak for Dieudonne, of course, but the fact that these shouldn't apply where A is empty was probably considered too obvious to be explicit about. But in formal mathematics one must be tediously explicit about everything, and this is a nice simple example showing why. Here are the corrected versions in the new Dieudonne_2_2 file:</p>
+<p>Theorem Dieudonne_2_2_3a: forall A c= R, A &lt;&gt; 0 -&gt; finite A -&gt; exists a :e A, forall x :e A, a &lt;= x.<br />
+Admitted.</p>
+<p>Theorem Dieudonne_2_2_3b: forall A c= R, A &lt;&gt; 0 -&gt; finite A -&gt; exists b :e A, forall x :e A, x &lt;= b.<br />
+Admitted.</p>
+<p>I also included a new file Dieudonne_2_2_extra.mg based on results from E. E claims to be able to prove (2.2.13b) from (2.2.11) and (2.2.13e) from (2.2.13c). The extra file includes these two relativized results as conjectures. If someone proves the relative results and then proves (2.2.11) or (2.2.13c), then the proof of (2.2.13b) or (2.2.13e) will just be using implication elimination to combine the results.</p>
+<p>Finally I added a new file with some results I would like to prove if I had more time. That file is IntsAndDiadRationals1.mg. There are definitions and conjectures mostly related to integers and Diadic Rationals (as Surreal Numbers). Here is a pdf version that may be more readable:</p>
+<p><a href="http://grid01.ciirc.cvut.cz/~chad/IntsAndDiadRationals1.pdf">http://grid01.ciirc.cvut.cz/~chad/IntsAndDiadRationals1.pdf</a></p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=153&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">368 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=153" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">Megalodon 1.5</span> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p153" class="tail">2021-02-21, 16:30 <a href="index.php?mode=thread&amp;id=153" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+</li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 6 users online (0 registered, 6 guests)<br />
+Forum time: 2021-12-05, 11:24 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

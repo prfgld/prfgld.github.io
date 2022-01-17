@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Hints on running a Proofgold node - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=35" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=35#p35" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Hints on running a Proofgold node</h1>
+<p class="author">by <strong><span class="registered_user">Brown</span></strong><span class="interpunction">, </span>Saturday, June 20, 2020, 13:31 <span class="ago">(533 days ago)</span><br />
+<span class="edited">edited by Brown, Saturday, June 20, 2020, 14:29</span></p>
+<p>After running proofgold for about 10 days, my assessment is that the software works, but barely. It requires some babysitting. I thought it might help others if I listed a few hints on getting a node running and keeping a node running.</p>
+<p><strong>Getting started</strong></p>
+<p>The README provides some information about how to compile the code and start it running, but sometimes this isn't enough.</p>
+<p>It looks like threading in ocaml is unreliable, so compiling with the script I posted the other day (makevmbytecode) will be necessary on some systems.</p>
+<p>Also, on some systems, /dev/random either doesn't work properly or blocks for too long to be useful. The command line argument -randomseed can be used to remedy this to some degree. 64 hex characters can be generated on a computer with a working /dev/random and then -randomseed &lt;64hexchars&gt; can be given as a command line argument when starting proofgold. This is sometimes still not enough since the function strong_rand_256 in sha256.ml will still try to use /dev/random. A -- possibly unsafe -- way to deal with this is replace all calls to strong_rand_256 with calls to rand_256. We also tried changing the code to use /dev/urandom instead, but this caused very counterintuitive exceptions (Sys_blocking_io).</p>
+<p>Nodes often have trouble connecting (and staying connected) to other nodes. When getpeerinfo says there are no connections, I found the information in Blake's post helpful: <a href="https://proofgold.org/forum/index.php?id=22">https://proofgold.org/forum/index.php?id=22</a></p>
+<p><strong>Keeping a node running</strong></p>
+<p>Nodes often die for unexplained reasons. This might happen roughly once a day, so it's a good idea to occasionally check if your node has died. If it has, restart it by hand. Restarting might require removing the lock file.</p>
+<p>Even when nodes don't die, they often get slower as time passes, so I find it helps to restart my nodes once a day anyway. (The exit command stops a node.)</p>
+<p>Sometimes nodes have trouble syncing even though they are connected. The command ltcstatus shows the current block chain (from the last week) and may indicate that certain headers or deltas of blocks are missing. If they are still missing after 10 minutes, it might be worth using the command &quot;requestblock &lt;blockid&gt;&quot; to explicitly request the block from peers. If no peer has the block, try to connect to more peers or post about it on the forum.</p>
+<p>I also had the database get corrupted once and had to delete everything and resync from scratch. At this point every few days I make a backup copy of the .proofgold directory in case this happens again.</p>
+<p><strong>Other issues</strong></p>
+<p>I've noticed sometimes I send transactions and several blocks pass before they are confirmed. It's possible transactions aren't being propagated properly. I don't know if using &quot;sendtx&quot; multiple times after restarting the node helps, but I've done it sometimes and they tend to eventually confirm.</p>
+<p>There were a few transactions where I was trying to publish documents with 200 bounties. These would not confirm for a long time. In the debug log (.proofgold/debug.log) there were messages saying the tx would make the block &quot;too big&quot;. I didn't believe that, so I hacked the code to force the txs into a block I staked. The resulting blocks were not too big and were valid. Maybe this is risky, so I am not suggesting it for others, but if you have a tx with a publication that won't confirm, nodes might think the tx is too big. I guess a rule of thumb for now would be to not include more than, say, 40 items in a document.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=35&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">433 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=35" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">Hints on running a Proofgold node</span> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p35" class="tail">2020-06-20, 13:31 <a href="index.php?mode=thread&amp;id=35" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+</li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 1 users online (0 registered, 1 guests)<br />
+Forum time: 2021-12-05, 11:11 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

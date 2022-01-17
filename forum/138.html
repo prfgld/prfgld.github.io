@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Proofgold Core 0.2.3 (Soft Fork, Stakers Should Update) - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=138" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=138#p138" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Proofgold Core 0.2.3 (Soft Fork, Stakers Should Update)</h1>
+<p class="author">by <strong><span class="mod registered_user" title="Moderator">BlakeKeiller</span></strong><span class="interpunction">, </span>Wednesday, January 06, 2021, 12:27 <span class="ago">(333 days ago)</span></p>
+<p>Someone pointed out some potential issues with the staking algorithm. I think they're important enough to fix quickly and make public. The fixed staking code is part of the latest release (today):</p>
+<p><a href="https://proofgold.org/proofgold-core-0.2.3.tgz">https://proofgold.org/proofgold-core-0.2.3.tgz</a></p>
+<p>1. There is an advantage to splitting assets into many smaller assets for staking. The main reason is that the staked asset will lose its age. If there are many small assets staking, then only that one loses its age while the others continue to gain age. This unfortunately incentivizes people to put many small locked assets into the ledger for staking. Since passing the initial pure burn stage of the blockchain, no one has staked with an asset smaller than 0.1 bars. The new code makes 0.1 bars a mandatory minimum for staking. This mandatory minimum will continue until Block 16000 at which time it will be raised to 1 bar, then after Block 18000 it will be raised to 10 bars and finally after Block 20000 it will be raised to 100 bars. This means no one should lock assets smaller than 0.1 for staking, and assets smaller than 100 bars should not be locked for longer than they will be allowed to stake.</p>
+<p>2. There was a bug in the way age was calculated for previously locked assets. The &quot;age&quot; of post-locked (non-reward) assets was calculated as the difference between the current height and the height the asset unlocked. If such an asset is staked with (which happened sometimes, but not too often, less than 1% of the last 1000 blocks), then its new birthday would be greater than the height at with the asset unlocked. As a consequence such assets would not lose age when staked with. Even worse, this could be gamed by &quot;locking&quot; a new asset with a lock height 10000 blocks in the past and making it start with the maximum possible age. (No one was doing that, but I did an experiment to check that it was possible.)</p>
+<p>I also made a third change: the maximum age for rewards and post-locked assets is now 5000 instead of 10000. The maximum age for locked non-reward assets (which age twice as fast) is still 10000. The intention is to make sure there is an incentive to lock assets for longterm staking.</p>
+<p>Part of the soft fork happens immediately: any attempt to stake with an asset smaller than 0.1 bars will not be accepted. Since no one is doing this, it should not be visible. The modifications to the calculation of coinage for post-locked assets will begin at Block 5500, which should come within the next two weeks.</p>
+<p>Stakers should update. If someone doesn't there is a chance they will stake a block considered invalid which will then be orphaned. This only applied to 1% of blocks in the last 1000, so it is not a huge risk.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=138&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">375 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=138" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">Proofgold Core 0.2.3 (Soft Fork, Stakers Should Update)</span> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p138" class="tail">2021-01-06, 12:27 <a href="index.php?mode=thread&amp;id=138" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+</li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 6 users online (0 registered, 6 guests)<br />
+Forum time: 2021-12-05, 11:22 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

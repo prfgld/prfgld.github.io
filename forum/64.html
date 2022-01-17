@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>No Blocks in 2 Days? [Serious] - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="first" href="63.html" />
+<link rel="prev" href="63.html" />
+<link rel="last" href="65.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=63" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=63#p64" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>No Blocks in 2 Days? [Serious]</h1>
+<p class="author">by <strong><span class="registered_user">Brown</span></strong><span class="interpunction">, </span>Saturday, August 29, 2020, 18:19 <span class="ago">(463 days ago)</span> <span class="op-link"><a href="63.html" title="click to go to the original posting by Brown">@ Brown</a></span></p>
+<p>I hate to be the bearer of bad news, but the current inability to stake a block is due to a serious bug. There actually is no possible valid successor block to the latest block.</p>
+<p>There's a bug with the computation of propositions for the reward bounties that causes some (16 apparently) propositions to get generated repeatedly. Until today I thought the probability of generating the same propositions was extremely low, and it does seem like this was the intention. Generating the same proposition more than once is not the end of the world, it just means multiple bounties get put onto it. However, there is a limit of 32 on the total number of assets that can be held at an address, and bounties technically count as assets. Two proposition addresses now have 32 bounties on them:</p>
+<p>TMR5rhXMF2Aa6iws9ccofrfWsUrKgDU6EdN<br />
+TMMZYuzwYGxKG4d78SDkLhvVkLmK4B57qJr</p>
+<p>It is now illegal to add any more bounties to either of these. Based on the Litecoin information associated with the latest Proofgold block, the next Proofgold block must put a new reward bounty onto TMR5rhXMF2Aa6iws9ccofrfWsUrKgDU6EdN. Since this is impossible, there is no possible valid successor block.</p>
+<p>If you want to verify that would be the next reward bounty address, you can call rewardbountyprop with the Litecoin blockid and Litecoin txid of the last Proofgold burn:</p>
+<p>rewardbountyprop a4a48955c1eeea9fec3d87ee9d09f1101c5dca7daa88211e5321a7e092a0ed92 506637ad1545d85d6ac508611e3ecfd64b0825903d6d9d0a446778cd042b0354</p>
+<p>There is a way forward, but it isn't good. Someone (like me) can call &quot;invalidateblock &quot; on the latest block and start staking on the previous block (orphaning the latest block). Then at least one node (like mine) would continue to orphan blocks in the future that repeat this situation. Right now that would only be about 2% of blocks, but very soon it will be 18% of blocks (since the other 14 of the 16 propositions are close to 32 bounties already). I don't think orphaning 18% of blocks is acceptable, but I can't see a way around it without doing a hard fork.</p>
+<p>If no one else uses invalidateblock by tomorrow (Sunday August 30 2020 at Noon UTC), then I will do it, but I will stake blocks sparingly to try to minimize orphans until there's some decision about what to do. I recommend either stopping staking or at least set put this into your proofgold.conf file:</p>
+<p>maxburn=0</p>
+<p>This will at least prevent you from burning litecoins to get a Proofgold block that may be orphaned.</p>
+<p>Here is the actual bug. It's in the function sei_poly3 in checker.ml. This function is used to generate a polynomial for Diophantine and Diophantine Modulo problems. The problem is specifically in the following code:</p>
+<p>  for x = 0 to 3 do<br />
+    for y = 0 to 3 do<br />
+      for z = 0 to 3 do<br />
+        let (b,c) = i 4 c in<br />
+        update_p b x y z<br />
+      done<br />
+    done<br />
+  done;</p>
+<p>In context the idea from reading the code is clear: use 4 bits from the 'c' variable to create coefficients ranging from 0 to 15 for monomials of the form x^i * y^j * z^k where i,j,k range from 0 to 3. However, this is functional programming, and so the reference to 'c' in &quot;i 4 c&quot; is always the same &quot;c&quot;. The &quot;c&quot; in (b,c) is never used. As a result, it keeps reusing the same 4 bits for every coefficient.</p>
+<p>In other places in the code this is handled correctly, e.g., in sei_abstr_hf_prop in checker.ml. The relevant part of the code there looks as follows:</p>
+<p>  let cr = ref c in<br />
+  for j = 1228 downto 0 do<br />
+    if not (j = concl) then<br />
+      let (b,c) = i 4 (!cr) in<br />
+      cr := c;<br />
+      if b = 0 then p := Imp(ahfprops.(j),!p)<br />
+  done;</p>
+<p>The ref cr is used to update the c value after using some bits, and then the updated value is used the next time. The same idea could be used to fix sei_poly3. This fix would definitely be a hard fork though.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=64&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">432 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=63" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><a class="thread" href="63.html">No Blocks in 2 Days?</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p63" class="tail">2020-08-29, 16:47 <a href="index.php?mode=thread&amp;id=63" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><span class="currentreply">No Blocks in 2 Days? [Serious]</span> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p64" class="tail">2020-08-29, 18:19</span>
+<ul class="reply">
+<li><a class="reply" href="65.html">No Blocks in 2 Days? [Serious]</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p65" class="tail">2020-08-29, 20:49</span>
+</li>
+</ul></li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 1 users online (0 registered, 1 guests)<br />
+Forum time: 2021-12-05, 11:14 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

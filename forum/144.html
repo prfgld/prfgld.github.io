@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Code Review (Phase 1) - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="first" href="140.html" />
+<link rel="prev" href="143.html" />
+<link rel="last" href="145.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=140" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=140#p144" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Code Review (Phase 1)</h1>
+<p class="author">by <strong><span class="registered_user">Brown</span></strong><span class="interpunction">, </span>Saturday, January 16, 2021, 12:02 <span class="ago">(323 days ago)</span> <span class="op-link"><a href="141.html" title="click to go to the original posting by Brown">@ Brown</a></span></p>
+<p>I wrote descriptions for the Phase 1 items, the ones from the modules zarithint and utils, so now we can start at Phase 2. This process is tedious, so even though I made it through the first two phases in two days shouldn't lead anyone to believe the rest will go as quickly. Without help, the rest probably won't happen at all.</p>
+<p>I also refined the things I called &quot;values&quot; before into four kinds of values: constants, refs, hash tables and (non-recursive) functions. Constants are the easiest to descrbie. Refs and hash tables record some state that gets updates, so these require more effort. Functions are the most common kind of value and were the ones I was thinking of in my previous post.</p>
+<p>Here is the updated modules.lisp file with the refined values:</p>
+<p><a href="http://s000.tinyupload.com/index.php?file_id=01310418650879839563">http://s000.tinyupload.com/index.php?file_id=01310418650879839563</a></p>
+<p>Here is the updated text file listing the phases, modules and items:</p>
+<p><a href="http://s000.tinyupload.com/index.php?file_id=09935063691758664210">http://s000.tinyupload.com/index.php?file_id=09935063691758664210</a></p>
+<p>Here is an updated lisp file with descriptions of items from the modules in Phase 0 (config, version) and Phase1 (zarith, utils).</p>
+<p><a href="http://s000.tinyupload.com/index.php?file_id=12350578141615263308">http://s000.tinyupload.com/index.php?file_id=12350578141615263308</a></p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=144&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">407 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=140" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><a class="thread" href="140.html">Code Review</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p140" class="tail">2021-01-14, 16:28 <a href="index.php?mode=thread&amp;id=140" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><a class="reply" href="141.html">Code Review</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p141" class="tail">2021-01-15, 10:11</span>
+<ul class="reply">
+<li><a class="reply" href="142.html">Code Review Outline</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p142" class="tail">2021-01-15, 10:12</span>
+</li>
+
+<li><a class="reply" href="143.html">Code Review (Phase 0)</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p143" class="tail">2021-01-15, 19:12</span>
+</li>
+
+<li><span class="currentreply">Code Review (Phase 1)</span> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p144" class="tail">2021-01-16, 12:02</span>
+<ul class="reply">
+<li><a class="reply" href="145.html">Code Review (Phase 1)</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p145" class="tail">2021-01-17, 09:26</span>
+</li>
+</ul></li>
+</ul></li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 6 users online (0 registered, 6 guests)<br />
+Forum time: 2021-12-05, 11:23 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

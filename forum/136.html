@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Proofgold Core 0.2.2 / Atomic Swaps - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=136" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=136#p136" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Proofgold Core 0.2.2 / Atomic Swaps</h1>
+<p class="author">by <strong><span class="mod registered_user" title="Moderator">BlakeKeiller</span></strong><span class="interpunction">, </span>Saturday, January 02, 2021, 13:12 <span class="ago">(337 days ago)</span></p>
+<p>Here is Proofgold Core 0.2.2:</p>
+<p><a href="https://proofgold.org/proofgold-core-0.2.2.tgz">https://proofgold.org/proofgold-core-0.2.2.tgz</a></p>
+<p>There are only a few changes from 0.2.1. Most of these changes are bug fixes to the swapping code. For example, the price of a sell offer for a node was being represented as floats and a side effect was that when stopping and restarting the node the price would decrease slightly due to approximation issues. It's now being saved as an int64. Also there was a bug when a sell offer was matched. Instead of removing the sell offer after matching it would actually remove every other sell offer.</p>
+<p>If you aren't using the swapping code from 0.2.1 it's not vital to update to 0.2.2.</p>
+<p>If you are using the swapping code from 0.2.1, I'd recommend calling &quot;cancelswapselloffers&quot; before upgrading and then using &quot;createswapselloffer&quot; to recreate your sell offers after upgrading.</p>
+<p>If you want to have your node participate in atomic swaps, you need to add</p>
+<p>swapping=1</p>
+<p>to your proofgold.conf file.</p>
+<p>The relevant commands are:</p>
+<p>selloffers (prints the local sell offers of the node)<br />
+buyoffers (prints all known buy offers seen by scanning the ltc chain)<br />
+matchoffers (shows current match offers as seen by scanning the pfg chain)<br />
+swapredemptions (shows swap redemptions in progress)</p>
+<p>createswapselloffer (create a local unadvertised offer to sell some pfg bars for litecoins)<br />
+cancelswapselloffers (delete all local sell offers of the node)<br />
+createswapbuyoffer (make a special ltc tx that offers to buy some pfg bars for litecoins)<br />
+cancelswapbuyoffer (cancel a specific buy offer -- this spends the ltc utxo created by createswapbuyoffer back to yourself)<br />
+scanforswapbuyoffers (this isn't needed but can scan back in the ltc chain some number of blocks in case there was a buy offer missed or created before the node started swapping)</p>
+<p>There is more information about each command available by using help with the command.</p>
+<p>I've been trying to keep at least one sell order for 10-100 pfg bars at a price of 0.00015 litecoins (which was about 1 eurocent per bar, but maybe now it's more like 1.5 eurocents) as a &quot;faucet.&quot; Going through my debug.log file I see 3 atomic swaps that have happened resulting in roughly 290 bars being swapped for about 0.04 ltc.</p>
+<p>I'm now switching to a default sell offer of 1-10 bars at a price of 0.0015 as a &quot;faucet.&quot; I'll make other sell offers and look to manually match buy offers I see depending on how I feel at the time.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=136&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">366 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=136" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">Proofgold Core 0.2.2 / Atomic Swaps</span> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p136" class="tail">2021-01-02, 13:12 <a href="index.php?mode=thread&amp;id=136" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+</li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 6 users online (0 registered, 6 guests)<br />
+Forum time: 2021-12-05, 11:22 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Proofgold 0.1.5 - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=51" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=51#p51" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Proofgold 0.1.5</h1>
+<p class="author">by <strong><span class="mod registered_user" title="Moderator">BlakeKeiller</span></strong><span class="interpunction">, </span>Sunday, July 19, 2020, 13:39 <span class="ago">(504 days ago)</span></p>
+<p>There were a few bugs reported last week, so I released a new version today:</p>
+<p><a href="https://proofgold.org/proofgold-0.1.5.tgz">https://proofgold.org/proofgold-0.1.5.tgz</a></p>
+<p>Two of the bugs were easy to fix: 1. There were problems initializing if the database directories hadn't been created yet. 2. The initial sync with litecoin should work forward instead of backward.</p>
+<p>The third bug can't be fixed without a hard fork and there's no good reason to fix it. Part of the code (unexpectedly) made it so that pure burns can no longer create blocks since Block 730. It was part of the code anyway to stop pure burns after Block 5000, so the &quot;bug&quot; just retired pure burns after a few weeks instead of a few months. From now on (actually, since July 2), Proofgold blocks can only created by staking Proofgold bars (possibly amplified by a burn of some litecoins).</p>
+<p>Unfortunately, this restricts stakers to people who already have Proofgold bars, but I will make a separate post about how newcomers can get some bars. (One way is to submit a bug report!)</p>
+<p>Now that the pure burn era has passed, it's worth noting that it could have been &quot;gamed&quot; as follows:</p>
+<p>The determination of whether or not a litecoin utxo was eligible to create a block using a pure burn depended on the txid of the utxo. Someone could have repeatedly created new litecoin utxos with new txids (without needing to send the litecoin tx) until obtaining a utxo that would be allowed to do a pure burn. After that, the litecoin tx creating the new utxo could have been sent. Assuming this confirmed in time, the new utxo could be used to do a pure burn. I don't think this attack actually happened, but I haven't looked closely.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=51&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">395 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=51" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">Proofgold 0.1.5</span> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p51" class="tail">2020-07-19, 13:39 <a href="index.php?mode=thread&amp;id=51" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+</li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 1 users online (0 registered, 1 guests)<br />
+Forum time: 2021-12-05, 11:12 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

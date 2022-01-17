@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Examples of Publishing Documents and Collecting Bounties - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="first" href="42.html" />
+<link rel="prev" href="44.html" />
+<link rel="last" href="46.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=42" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=42#p45" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Examples of Publishing Documents and Collecting Bounties</h1>
+<p class="author">by <strong><span class="registered_user">Brown</span></strong><span class="interpunction">, </span>Saturday, June 27, 2020, 18:26 <span class="ago">(526 days ago)</span> <span class="op-link"><a href="42.html" title="click to go to the original posting by Brown">@ Brown</a></span></p>
+<p>Lastly, here is the text source of the document proving the conjecture from Block 171:</p>
+<p><a href="https://pastebin.com/xx4QuJmt">https://pastebin.com/xx4QuJmt</a></p>
+<p>This document isn't particularly readable. The theorem itself could have been copied from here:</p>
+<p><a href="https://proofgold.org/bountyasm/pos_8b6487a6e60f70caa643209c149dc82110e6de69b0afe29d6627e9b0cc2c187b">https://proofgold.org/bountyasm/pos_8b6487a6e60f70caa643209c149dc82110e6de69b0afe29d662...</a></p>
+<p>It looks like I reprinted it with my own code though, since the let abbreviations for &quot;not&quot; and &quot;or&quot; are not used in my version.</p>
+<p>The theorem has the form</p>
+<p>  forall ..., Hyp1 -&gt; Hyp2 -&gt; ... -&gt; Hyp73 -&gt; Concl</p>
+<p>Only one of the Hyps is used (as became evident from the E proof). As a consequence the proof term simply looks like a sequence of 73 lambda abstractions only one of which needs to be given an explicit name, and then this one hypothesis being used in a fairly trivial way:</p>
+<p>  TmLa ...<br />
+  PrLa _ ... ...<br />
+  PrLa A1 All x32 set Imp Ap Ap x2 x32 Ap Ap x11 Ap x10 x5 Ap x10 Ap x10 x5 Imp Ap Ap x1 Ap x10 x5 x32 Ap Ap Prim 5 Ap Ap Prim 5 Ap Ap Prim 5 Eq set x32 x4 Eq set x32 Ap x10 x5 Eq set x32 Ap x10 Ap x10 x5 Eq set x32 Ap Ap x11 Ap x10 x5 Ap x10 Ap x10 x5<br />
+  PrLa _ ... ...<br />
+  TmLa x21 set PrLa A2 Ap Ap x2 x21 Ap Ap x11 Ap x10 x5 Ap x10 Ap x10 x5 PrLa A3 Ap Ap x1 Ap x10 x5 x21 PrLa _ Ap Ap x1 x5 x21<br />
+  PrAp PrAp TmAp A1 x21 A2 A3</p>
+<p>After getting the right format and checking it with readdraft, I published it the same way as Pfg128: addnonce, addpublisher, commitdraft, publishdraft. Then I collected the bounty with collectbounties.</p>
+<p>I hope this information is useful. When I have the first reasonable tool/tools for producing documents without doing everything by hand, I'll make a post about it.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=45&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">482 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=42" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><a class="thread" href="42.html">Examples of Publishing Documents and Collecting Bounties</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p42" class="tail">2020-06-27, 17:43 <a href="index.php?mode=thread&amp;id=42" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><a class="reply" href="43.html">Examples of Publishing Documents and Collecting Bounties</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p43" class="tail">2020-06-27, 18:05</span>
+<ul class="reply">
+<li><a class="reply" href="44.html">Examples of Publishing Documents and Collecting Bounties</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p44" class="tail">2020-06-27, 18:15</span>
+</li>
+</ul></li>
+
+<li><span class="currentreply">Examples of Publishing Documents and Collecting Bounties</span> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p45" class="tail">2020-06-27, 18:26</span>
+</li>
+
+<li><a class="reply" href="46.html">Examples of Publishing Documents and Collecting Bounties</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p46" class="tail">2020-06-28, 11:05</span>
+</li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 1 users online (0 registered, 1 guests)<br />
+Forum time: 2021-12-05, 11:12 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

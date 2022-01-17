@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Atomic Swaps with Litecoin (Faucet and Initial Market) - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="first" href="120.html" />
+<link rel="prev" href="123.html" />
+<link rel="last" href="125.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=120" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=120#p124" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Atomic Swaps with Litecoin (Faucet and Initial Market)</h1>
+<p class="author">by <strong><span class="mod registered_user" title="Moderator">BlakeKeiller</span></strong><span class="interpunction">, </span>Monday, December 07, 2020, 15:30 <span class="ago">(363 days ago)</span> <span class="op-link"><a href="120.html" title="click to go to the original posting by BlakeKeiller">@ BlakeKeiller</a></span></p>
+<p>There are new commands allowing nodes to coordinate atomic swaps exchanging Proofgold bars for litecoins at specified price. Proofgold generally has the disclaimer of &quot;use at your own risk&quot;, but this should be emphasized with this new feature. Under normal operation of the network, there should not be a risk of losing funds, but I cannot guarantee normal operation of the network. If your node dies for 48 blocks (about two days), funds can be lost. And, of course, if there are bugs in the code, funds could be lost in other unforeseen ways.</p>
+<p>Due to the experimental nature, I would recommend that people only use this (for now) with relatively low values. To be specific, I will not use this with values over 1 litecoin or 1000 bars, and recommend others have these limits (or stricter).</p>
+<p>Atomic swaps should help newcomers obtain a relatively small amount of Proofgold bars for experimentation. Atomic swaps can also be the seed for an initial market.</p>
+<p>By default client nodes will not engage in swapping (or notice that others are swapping). To enable swapping, put</p>
+<p>swapping=1</p>
+<p>in proofgold.conf or start proofgold with the -swapping command line option.</p>
+<p>The proofgold.conf also needs to have at least one bech32 litecoin address marked as a trade address, like this:</p>
+<p>ltctradeaddress=ltc1...</p>
+<p>The trade addresses should be different from other ltcaddress addresses in the proofgold.conf file. (Those others are used to create burn transactions for staking).</p>
+<p>Here are the most important new commands for atomic swaps and how to use them.</p>
+<p>Suppose Alice has 0.0015 litecoin (LTC) and wishes to buy 100 bars (PFG) at a price of 0.000015 LTC:PFG (about 1 eurocent per PFG bar at current prices). She can use the createswapbuyoffer command like this:</p>
+<p>createswapbuyoffer &lt;address&gt; 0.000015 100 0.0015</p>
+<p>The address should be one Alice has in her wallet. The command newaddress can give her a new address if she needs one.</p>
+<p>When Alice does this, assuming an ltctradeaddress has enough litecoins, a litecoin transaction will be sent to herself. The first output of the transaction is an OP_RETURN giving the relevant buy offer information. The second output is the 0.0015 litecoins to be spent for the bars. (An optional third output will be change.)</p>
+<p>This buy offer will be visible to all other nodes with swapping enabled. All current buy offers can be listed with the &quot;buyoffers&quot; command.</p>
+<p>Alice can cancel the buy offer by spending the first txout of the litecoin transaction back to herself. The command &quot;cancelswapbuyoffers &lt;ltctxid&gt;&quot; can do this for her.</p>
+<p>Buy offers like the one above are public. Sell offers are private and are only known to the local node.</p>
+<p>If Bob is willing to sell between 100 and 300 Proofgold at a price of at least 0.00001 LTC:PFG, he can issue the following command:</p>
+<p>createswapselloffer 0.00001 100 300</p>
+<p>If Alice and Bob have both done this, then Bob's node will recognize that there is a match. Without going into full technicalities (explanation available upon request), Bob's node will create an unsigned litecoin transaction that could send Alice's 0.0015 ltc to his address. He then creates a smart contract that will allow Alice to spend from the contract if the unsigned litecoin transaction is signed, published and has 3 confirmations. Bob can spend from the smart contract after 48 blocks (two days) in case Alice does not accept the match offer. Bob's node then sends 100 bars to the smart contract with a Proofgold transaction of a special form. When Alice sees this Proofgold transaction (and it has 3 confirmations), her node can sign the litecoin transaction and publish it. After it has 3 confirmations, Alice can spend the 100 bars at the smart contract to an address she controls. She must do this before the smart contract is 48 blocks old, or Bob can retake the bars.</p>
+<p>Assuming Alice;s node accepts the match offer, signs and publishes the litecoin tx and then collects from the smart contract, she will have 100 PFG bars (minus transaction fees, so really ~99.999) and Bob will have 0.0015 litecoins (minus transaction fees, so really ~0.00149).</p>
+<p>On average a successful exchange like this should take 3 to 4 hours after there is a match.</p>
+<p>Bob can cancel all his current sell offers with the command &quot;cancelswapselloffers.&quot; Bob can see his current (local) sell offers with the command &quot;selloffers&quot;.</p>
+<p>In case an atomic swap does not seem to have worked, check the debug.log file (in .proofgold) for information about what may have gone wrong.</p>
+<p>Again, this feature is &quot;USE AT YOUR OWN RISK&quot; and I highly suggest not placing buy or sell offers of high value.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=124&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">474 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=120" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><a class="thread" href="120.html">Proofgold 0.2.1(rc3)</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p120" class="tail">2020-12-07, 15:10 <a href="index.php?mode=thread&amp;id=120" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><a class="reply" href="121.html">Reward Bounties via Smart Contract with Veto Clause</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p121" class="tail">2020-12-07, 15:15</span>
+</li>
+
+<li><a class="reply" href="122.html">Rebranding Client as Proofgold Core</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p122" class="tail">2020-12-07, 15:17</span>
+</li>
+
+<li><a class="reply" href="123.html">New Configuration Parameters</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p123" class="tail">2020-12-07, 15:19</span>
+</li>
+
+<li><span class="currentreply">Atomic Swaps with Litecoin (Faucet and Initial Market)</span> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p124" class="tail">2020-12-07, 15:30</span>
+<ul class="reply">
+<li><a class="reply" href="125.html">Atomic Swaps with Litecoin (Faucet and Initial Market)</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p125" class="tail">2020-12-07, 15:30</span>
+</li>
+</ul></li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 6 users online (0 registered, 6 guests)<br />
+Forum time: 2021-12-05, 11:21 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

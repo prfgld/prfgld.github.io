@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Proofgold Core 0.2.7 - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="last" href="200.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=199" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=199#p199" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Proofgold Core 0.2.7</h1>
+<p class="author">by <strong><span class="mod registered_user" title="Moderator">BlakeKeiller</span></strong><span class="interpunction">, </span>Sunday, November 07, 2021, 10:19 <span class="ago">(28 days ago)</span></p>
+<p>Proofgold Core 0.2.7 is ready:</p>
+<p><a href="https://proofgold.org/proofgold-core-0.2.7.tgz">https://proofgold.org/proofgold-core-0.2.7.tgz</a></p>
+<p>The main reason to release a new version was to remove any remaining dependence on the proofgold.org domain name. Already in 0.2.6 the private messaging and ability to anonymously post on the forum were removed. (This has the side effect that no one new can join this discussion forum, so I now consider the forum defunct and only a way to make announcements like this. If someone who has already joined the forum creates a new forum, please feel free to post a link to it while proofgold.org is still online.)</p>
+<p>To prepare for the next era of Proofgold in which there is no &quot;central&quot; source of information like proofgold.org, &quot;alerts&quot; have been added. An &quot;alert&quot; is a special kind of litecoin transaction that contains data. There are four kinds of alerts:</p>
+<p>. Alert : This is just a text message of &lt; 70 characters. The message is placed in the debug.log file of all users. It is also printed to stdout if the process is not running as a daemon. Any user can publish an alert using the &quot;broadcastalert&quot; Proofgold command.</p>
+<p>. Listener : This is an ip address (with port) or onion address (with port) for a Proofgold node listening for connections. This is to help new nodes join the network and an alternative to the old method of looking up peers at proofgold.org/peers.txt. If your node is listening at a given onion or ip address, you can publish this as an alert using &quot;broadcastlistener.&quot; New nodes will see these alerts and try to connect to your node (or at least save the url for future tries).</p>
+<p>. Bootstrap : This is a URL for a bootstrap (to easily initialize the database without needing to sync from the beginning). Previously bootstraps were always available from proofgold.org/bootstrap, though there was the ability to configure &quot;bootstrapurl&quot; to be another value. Now &quot;bootstrapurl&quot; defaults to the empty string. Users can give their own bootstrapurl by setting &quot;bootstrapurl=...&quot; in proofgold.conf or giving &quot;-bootstrapurl=...&quot; on the command line. This is only relevant the first time a node is started and there is no database. If no bootstrapurl is given, then the new node starts by searching recent ltc blocks for broadcasts of a Bootstrap Alert giving a url to use. The Proofgold command &quot;broadcastbootstrap&quot; to create a Bootstrap Alert.</p>
+<p>. Bootstrap Warning : This is an alert warning nodes not to use a given bootstrap url. This could be because a bootstrap url is out of date, has disappeared, or was corrupted in some way. When a new node starts, it ignores any Bootstrap Alert that was followed by a Bootstrap Warning Alert. The Proofgold command &quot;broadcastbootstrapwarning&quot; can be used to create a Bootstrap Warning Alert.</p>
+<p>For users who want to create and supply their own bootstraps, I'm releasing a very small bash script for doing this:</p>
+<p><a href="https://proofgold.org/makebootstrap">https://proofgold.org/makebootstrap</a></p>
+<p>You will likely need to change some absolute pathnames to use it. The script currently assumes the .proofgold directory is in the home directory of user &quot;pfg.&quot; It also assumes Apache is serving the web site given by the ip address using the data in /var/www/html.</p>
+<p>A few other changes are worth noting.</p>
+<p>The networking code has been reworked so that connections can declare the &quot;strength&quot; of connection they desire when connecting to a listener. (The idea is that if a node has no connection, it urgently wants one -- requesting a &quot;strong&quot; connection. The more connections the node has, the less urgently it wants one.) In case a listening node is full of connections and a new node wants a connection more urgently, the listening node will drop the weakest connection to make room for the new one. In case of a tie, the new node had the option of doing some proof of work to override the old node.</p>
+<p>Nodes die quite often and I did work to localize the most common reason. It seems to happen (mostly) when &quot;flush sout&quot; is called in send_msg_real in net.ml. My guess is that the channel has closed and so the call to flush causes a problem. From my reading flush should NOT have this effect, but nevertheless it seems to. I tried various fixes without success, so unfortunately your nodes will die regularly and you will need to manually restart them. <strong>IF SOMEONE KNOWS HOW TO FIX THIS PLEASE LET ME KNOW.</strong></p>
+<p>There is also a new database module type that exposes a new function &quot;dbbincp&quot; that directly copies the binary value being stored into a string buffer. This is only used for DbBlockdelta, but might make sense for other Db's. In the case of deltas in particular, it was clear that when a block delta is requested by a peer, time is wasted deserializing the data from the database and then reserializing it to send to the peer. Now the binary data is sent directly.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=199&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">48 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=199" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">Proofgold Core 0.2.7</span> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p199" class="tail">2021-11-07, 10:19 <a href="index.php?mode=thread&amp;id=199" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><a class="reply" href="200.html">Proofgold Core 0.2.7</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p200" class="tail">2021-11-07, 10:22</span>
+</li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 6 users online (0 registered, 6 guests)<br />
+Forum time: 2021-12-05, 11:29 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

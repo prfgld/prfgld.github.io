@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Remarks on Classes of Random Bounties - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="last" href="94.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=89" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=89#p89" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Remarks on Classes of Random Bounties</h1>
+<p class="author">by <strong><span class="registered_user">Brown</span></strong><span class="interpunction">, </span>Saturday, October 03, 2020, 11:48 <span class="ago">(428 days ago)</span><br />
+<span class="edited">edited by Brown, Saturday, October 03, 2020, 11:53</span></p>
+<p>One of my concerns about the random bounty propositions is that they often seem too easy. (I'll say more about each category below.) Each time an easy one is generated, it creates bad incentives for stakers. Specifically a staker might refuse to publish any commitments other than their own to try to ensure their document with the proof is published first. As long as easy ones are rare, this probably isn't a big issue, but I don't think they're so rare at the moment.</p>
+<p>I think the AIM problems are the best, in terms of being unlikely to be easy. I was worried about these since in August it was reported to me that CVC4-SAT18 could find countermodels to many of them, indicating they have small finite counterexamples. This was surprising to me since I know the smallest possible counterexamples would have a domain of size 5. Looking closer it turned out there's a bug in the FOF printout of the problem. It's leaving out the definitions of &quot;a&quot; and &quot;K&quot; in the FOF specification, making the conjectures always very easy to make false.</p>
+<p>I spent some time testing all possible finite loops of size 5 and 6 and none of them are actual counterexamples to any of the AIM reward bounty propositions so far. I also tried 8 loops of size 7 and these also didn't give counterexamples. I'm reasonably convinced that when there are countermodels, they will be difficult for model finders to generate. The fact that The AIM Conjecture is still open is a strong indication that cases where the conjecture is provable will also be difficult.</p>
+<p>So, one possibility for a hard fork would be to just make the AIM1 and AIM2 classes the only kind of (new) reward bounty propositions. They're relatively easy to explain to newcomers and will provide a simple way for people from outside the theorem proving community to understand the conjectures. All of them ask the same kind of question: is there a finite set with a binary operation satisfying some equations and falsifying one of two very specific equations?</p>
+<p>It's also easier to make the case that the AIM1 and AIM2 conjectures are &quot;meaningful&quot; since they relate to an open problem in mathematics.</p>
+<p>Here's my summary about the other classes:</p>
+<p>Random HF : These are easy too often, if someone just ignores most of the irrelevant parts of the proposition. For example, it's often easy enough to prove one by using an instantiation like &quot;constant False&quot; or &quot;constant True&quot; for one quantifier and not caring about the instantiations of other quantifiers.</p>
+<p>QBF : Experiments with some QBF solvers a few months ago suggested to me that with current technology and a 10 minute time out, about 40% of the random QBF problems can be solved. It's still &quot;difficult&quot; (practically, not in principle) to obtain a Proofgold proof term for the problem, but I doubt that's a serious problem. As soon as someone overcomes it, far too many of the QBF problems are too easy.</p>
+<p>Set Constraints : I don't have a strong opinion here, but it seems likely many could be solved using the SETVAR techniques of Bledsoe and Feng (adapted for higher-order theorem proving by me, see my CADE 2002 paper).</p>
+<p>Higher-Order Unification: While this is undecidable, Huet's preunification (and various extensions over the decades) would likely make many of these relatively easy.</p>
+<p>Untyped Combinator Unification: Again, this is an undecidable problem class, but Vampire was able to quickly say many of the corresponding first-order problems were countersatisfiable (14 out of 19). This is surprisingly high and makes me wonder if there is a bug in either the problem generation or the fof representation of the problem.</p>
+<p>Abstract HF Problems: CVC4-SAT and Vampire togethere were able to say 4 out of 61 of these were countersatisfiable within a minute. That's not too bad, but I've also found at least one example from this class that was very easy -- where the conjecture follows by instantiating one quantifier of an axiom. I suspect that if people focused on solving these problems, too high a percentage would turn out to be easy.</p>
+<p>Diophantine: Again, while this is a class of undecidable problems, it's not clear how difficult the randomly generated conjectures are in practice. So far no prover has proven or disproven any of the ones from this class, but it's easy to imagine someone familiar with integer programming would know some tricks to make many of the problems easy to solve.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=89&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">431 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=89" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">Remarks on Classes of Random Bounties</span> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p89" class="tail">2020-10-03, 11:48 <a href="index.php?mode=thread&amp;id=89" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><a class="reply" href="92.html">Remarks on Classes of Random Bounties</a> - 
+
+<strong></strong>, 
+
+<span id="p92" class="tail">2020-10-05, 10:38</span>
+<ul class="reply">
+<li><a class="reply" href="93.html">Remarks on Classes of Random Bounties</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p93" class="tail">2020-10-07, 13:58</span>
+</li>
+
+<li><a class="reply" href="94.html">Remarks on Classes of Random Bounties</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p94" class="tail">2020-10-07, 19:31</span>
+</li>
+</ul></li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 3 users online (0 registered, 3 guests)<br />
+Forum time: 2021-12-05, 11:16 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

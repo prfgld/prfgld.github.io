@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Proofgold Core 0.2.8 (stakers should/must update) - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="last" href="212.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=210" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=210#p210" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Proofgold Core 0.2.8 (stakers should/must update)</h1>
+<p class="author">by <strong><span class="mod registered_user" title="Moderator">BlakeKeiller</span></strong><span class="interpunction">, </span>Saturday, November 20, 2021, 13:22 <span class="ago">(15 days ago)</span></p>
+<p>The new version is available:</p>
+<p><a href="https://proofgold.org/proofgold-core-0.2.8.tgz">https://proofgold.org/proofgold-core-0.2.8.tgz</a></p>
+<p>There have been two changes since the previous release candidate.</p>
+<p>1. I followed the advice to ignore the sigpipe signal.</p>
+<p>2. I've debated for the past two days about what to say about this second change. I have some extra sanity checking code that I run and a few days ago it indicated that a tx in a block seemed invalid.  After looking into why I found a bug. Fixing the bug is technically easy but requires a soft fork. I've decided to try to quickly fix the issue with a soft fork starting at Block 13500 (in about two weeks). If the majority of stakers do not update in the next week, I am likely to abort the soft fork to minimize the chance of splitting the chain. I prefer not to say what the problem is until the soft fork succeeds or fails to prevent potential attacks, but I will disclose it if someone asks. It's easy to figure out what happened by comparing the 0.2.8rc2 code to the 0.2.8 code anyway.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=210&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">36 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=210" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">Proofgold Core 0.2.8 (stakers should/must update)</span> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p210" class="tail">2021-11-20, 13:22 <a href="index.php?mode=thread&amp;id=210" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><a class="reply" href="211.html">Proofgold Core 0.2.8 (stakers should/must update)</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p211" class="tail">2021-11-20, 17:01</span>
+<ul class="reply">
+<li><a class="reply" href="212.html">Proofgold Core 0.2.8 (stakers should/must update)</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p212" class="tail">2021-11-21, 12:50</span>
+</li>
+</ul></li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 4 users online (0 registered, 4 guests)<br />
+Forum time: 2021-12-05, 11:30 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

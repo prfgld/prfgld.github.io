@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Broken Loop Definition and Random Bounties - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=133" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=133#p133" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Broken Loop Definition and Random Bounties</h1>
+<p class="author">by <strong><span class="mod registered_user" title="Moderator">BlakeKeiller</span></strong><span class="interpunction">, </span>Tuesday, December 29, 2020, 07:50 <span class="ago">(341 days ago)</span></p>
+<p>One reason I advocated for a hard fork to change the reward bounties is that there was a bug in the formulation of the AIM related bounty propositions. These were 1288 (roughly 25%) of the reward bounty propositions until the hard fork.</p>
+<p>The source is of the bug is the definition of Loop what was built into the HOHF theory. In that definition the condition that the identity element must be a member of the carrier is missing. As a consequence there is a trivial counterexample that can be used to prove the negation of every one of the corresponding reward bounty propositions: take {0} to be the carrier with trivial operations sending everything to 0 and taking {0} itself as the &quot;identity element&quot;.</p>
+<p>I noticed this in early October. Since then I have published documents using the trivial counterexample to collect all those bounties and published documents with &quot;fixed&quot; versions. Since this bug was my fault, as a penance I put 26 bars (2% more than the original 25 bar bounty) on each of the fixed propositions. The fixed proposition is the same as the original proposition except there is an extra implication with an antecedent requiring the identity to be a member of the carrier. In total I collected 32,200 bars by solving the broken versions and put 33,488 bars as bounties on the fixed versions.</p>
+<p>Here is a file that unzips to a directory giving Megalodon and Proofgold versions of the documents solving the broken versions (the files starting with aim_broken) and fixed versions (the files starting with aim_fixed):</p>
+<p><a href="https://proofgold.org/brokenloop.tgz">https://proofgold.org/brokenloop.tgz</a></p>
+<p>I was using Megalodon 1.0 so changes might be needed to be compatible with later releases.</p>
+<p>This experience is one reason I decided a flexible bounty fund is more realistic than a fixed set of problems. It's very difficult to avoid bugs like this so having the flexibility to change course without needing to hard fork seemed like the most realistic option.</p>
+<p>I hope everyone understands why I kept this secret until now. Once it was public anyone could have used the same technique to collect the broken bounties.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=133&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">368 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=133" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">Broken Loop Definition and Random Bounties</span> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p133" class="tail">2020-12-29, 07:50 <a href="index.php?mode=thread&amp;id=133" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+</li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 6 users online (0 registered, 6 guests)<br />
+Forum time: 2021-12-05, 11:22 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

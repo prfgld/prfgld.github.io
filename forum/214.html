@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>What Happens Next - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=214" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=214#p214" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>What Happens Next</h1>
+<p class="author">by <strong><span class="mod registered_user" title="Moderator">BlakeKeiller</span></strong><span class="interpunction">, </span>Sunday, November 21, 2021, 13:01 <span class="ago">(14 days ago)</span></p>
+<p>As previously stated I lost control of the proofgold.org domain several months ago. I have been trying to get the code to a state that the network can continue without me having the ability to suggest new changes. Unfortunately this has also meant some changes have been rushed.</p>
+<p>I no longer believe it is likely that the Proofgold network can survive without updates to the code. To put arbitrary numbers to my assessment, I'd only give the network a 25% chance of surviving with no future hard forks and a 10% chance of surviving with no future soft forks.</p>
+<p>One of the last changes I have put into the code are the &quot;alerts&quot; that are broadcast on the Litecoin block chain. If you are running a node and looking for alerts, grep your debug.log for lines that begin with ALERT:</p>
+<p>grep ^ALERT debug.log</p>
+<p>If you are running Proofgold in console mode (instead of as a daemon) you will also see alerts in your stdout.</p>
+<p>If someone needs to coordinate a future soft fork or hard fork, the &quot;broadcastalert&quot; command is really the only hope for sending a message (probably with a link) to let nodes know they need to update.</p>
+<p>Please keep in mind that literally anyone can send an alert. A malicious actor could send an alert asking nodes to update to malicious code as easily anyone else. Each person running a node will need to decide for themselves what alerts to take seriously and what alerts to ignore. I will note that nodes can sign messages with addresses and verify those signatures using the commands signmessage (or signmessagewithkey) and verifymessage. Someone sending an alert could link to a message and include such a signature with the message that people could check for themselves. If the address corresponds to a staker or someone who has published documents/proved theorems, then it would be natural to take the alert more seriously. Even then, it's only a heuristic.</p>
+<p>With that warning in mind, I would still recommend giving alerts and alleged updates the benefit of the doubt, at least in the near future. I suspect Proofgold is more likely to die from neglect than attack.</p>
+<p>Good luck and buyer beware.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=214&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">41 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=214" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">What Happens Next</span> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p214" class="tail">2021-11-21, 13:01 <a href="index.php?mode=thread&amp;id=214" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+</li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 4 users online (0 registered, 4 guests)<br />
+Forum time: 2021-12-05, 11:30 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

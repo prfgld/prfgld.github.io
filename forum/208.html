@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Mathematical Objects and Propositions as NFTs - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="last" href="209.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=208" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=208#p208" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Mathematical Objects and Propositions as NFTs</h1>
+<p class="author">by <strong><span class="registered_user">Brown</span></strong><span class="interpunction">, </span>Tuesday, November 16, 2021, 16:31 <span class="ago">(19 days ago)</span></p>
+<p>Recently after explaining to someone that the entity who publishes a document defining a new mathematical object or proving a new mathematical proposition in Proofgold becomes the &quot;owner&quot; of the object/proposition, the person pointed out that essentially makes these &quot;ownership assets&quot; NFTs. Certainly they can be exchanged, and they cannot be duplicated (or destroyed). A criticism of most NFTs is that they don't actually give the owner any power (except to say they &quot;own&quot; it and be able to sell the NFT to someone else). In Proofgold though, the owner can decide if later documents can import the object opaquely (without redefining it) or the proposition opaquely (without reproving it). By default objects and propositions are free to use, but this can be changed by the owner. It can be changed to allow others to purchase rights for a declared price (in proofgold bars) for each document they use it in, or to even disallow anyone from using it (a &quot;stay off my lawn&quot; policy).</p>
+<p>Playing around with these ideas, I found that I published a document defining Kuratowski pairs last year. (Given two sets x and y, {{x,y},{x}} is the Kuratowski pair of x and y.) I don't use Kuratowski pairs because I prefer a different definition of pairing with nice properties. (If you're interested, look up my 2015 Journal of Automated Reasoning paper &quot;Reconsidering Pairs and Functions as Sets.&quot;) So I &quot;own&quot; Kuratowski pairs and decided to change them from being &quot;free to use&quot; to &quot;no one can use.&quot; There's no good reason to use Kuratowski pairs and it's a good way to test out the ability to use these &quot;NFTs&quot; this way. I've now also defined 7 variants of Kuratowski pairs (e.g., {{x},{x,y}}, {{x},{y,x}}, etc.) and also disallowed using these (opaquely) in new documents.</p>
+<p>Technically for each object/proposition there are two things owned: the pure version and the theory version. To be able to reuse something opaquely, both owners must allow it. For the original Kuratowski pairs I only disallowed the &quot;pure&quot; version, but that's good enough.</p>
+<p>Declaring new definitions to allow no reuse is easy. In the Proofgold document do this:</p>
+<p>NewRights KPair2 &lt;owneraddress&gt; None<br />
+NewPureRights KPair2 &lt;owneraddress&gt; None</p>
+<p>That's what I did with the 7 variants. With the original I needed to create a transaction sending the ownership asset to myself, changing the rights policy in the process. I had to do this with creategeneraltx and it was quite painful. I might give more details in a reply to this message, but the point is that a command to handle this special case would make things much easier. Ideally there would also be a way for people who want to sell such ownership assets to auction them off for litecoin using an atomic swap.</p>
+<p>Finally, to try to make sure I really can't include Kuratowski pairs in a new document, I tried. readdraft tells me the new document will not be publishable, but not very prominently. commitdraft warns more clearly and refuses to create the commitment transaction. However, commitdraft ends with the message &quot;Refusing to commit to the draft until the issues above are result.&quot; I assume this is a typo and &quot;result&quot; should be something like &quot;resolved.&quot;</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=208&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">38 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=208" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">Mathematical Objects and Propositions as NFTs</span> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p208" class="tail">2021-11-16, 16:31 <a href="index.php?mode=thread&amp;id=208" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><a class="reply" href="209.html">Mathematical Objects and Propositions as NFTs</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p209" class="tail">2021-11-16, 16:45</span>
+</li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 6 users online (0 registered, 6 guests)<br />
+Forum time: 2021-12-05, 11:30 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

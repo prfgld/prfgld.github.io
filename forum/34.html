@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>1000 1 bar simple set theory bounties - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=34" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=34#p34" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>1000 1 bar simple set theory bounties</h1>
+<p class="author">by <strong><span class="registered_user">Brown</span></strong><span class="interpunction">, </span>Saturday, June 20, 2020, 11:51 <span class="ago">(533 days ago)</span></p>
+<p>I published 5 documents each of which has 200 simple set theory conjectures. I put a 1 bar bounty on each of these. They should be easier to understand and (usually) easier to prove than the random bounty propositions.</p>
+<p>Here is the first document in a format readable by the readdraft command:</p>
+<p><a href="https://pastebin.com/8xsrfaDL">https://pastebin.com/8xsrfaDL</a></p>
+<p>I made several definitions at the beginning, e.g., disjointness of two sets:</p>
+<p>Def disj : TpArr set TpArr set Prop := Lam X set Lam Y set All Z set Imp Ap Ap In Z X Ap Ap nIn Z Y</p>
+<p>and the ordinal successor of 0 (the ordinal 1):</p>
+<p>Def c0001 : set := Ap ordsucc Empty</p>
+<p>In the remaining four documents, I import these objects opaquely as Params (see below).</p>
+<p>Here is a simple example of a conjecture:</p>
+<p>Conj atmost3_1027 : Ap not Ap atleast4 Ap Ap SetAdjoin c0003 c000A</p>
+<p>The set c0003 is the set {0,1} (defined in a certain way) and c000A is the set {1,2} (defined in a certain way). So, informally this conjecture says {0,1,{1,2}} has at most 3 elements. More precisely, it says {0,1,{1,2}} does <em>not</em> have at least 4 elements. To prove this, one would assume {0,1,{1,2}} has at least 4 elements and unwind definitions to determine there must be sets X c= Y c= {0,1,{1,2}} where X has at least two elements, Y has at least three elements, Y is not a subset of X and {0,1,{1,2}} is not a subset of Y. With some work, a contradiction follows. Publishing a fully formal proof of the proposition in a document will make someone the &quot;owner&quot; of the proposition. The owner of a proposition (or the owner of its negation) is allowed to collect bounties on the proposition, so in this case the 1 bar bounty could be claimed.</p>
+<p>The other four documents are here:</p>
+<p><a href="https://pastebin.com/emjk9NC0">https://pastebin.com/emjk9NC0</a></p>
+<p><a href="https://pastebin.com/tDY8EW3X">https://pastebin.com/tDY8EW3X</a></p>
+<p><a href="https://pastebin.com/RRWH103M">https://pastebin.com/RRWH103M</a></p>
+<p><a href="https://pastebin.com/TbzF9zMX">https://pastebin.com/TbzF9zMX</a></p>
+<p>As mentioned above, the definitions from the first document are imported opaquely in the remaining documents. For example:</p>
+<p>Param 5b2442ea92009044fd3c96ca607ed2498f48caf1ef3d63f52cd11e7f9949c756 disj : TpArr set TpArr set Prop</p>
+<p>and</p>
+<p>Param 0738f95f806b4f24cec31019f705c04a2d2dcc38a6ea8fd411ada1e2398f40cf c0001 : set</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=34&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">430 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=34" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">1000 1 bar simple set theory bounties</span> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p34" class="tail">2020-06-20, 11:51 <a href="index.php?mode=thread&amp;id=34" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+</li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 1 users online (0 registered, 1 guests)<br />
+Forum time: 2021-12-05, 11:10 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

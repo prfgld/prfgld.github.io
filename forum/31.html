@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Emergency Hard Fork - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="first" href="30.html" />
+<link rel="prev" href="30.html" />
+<link rel="last" href="32.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=30" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=30#p31" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Emergency Hard Fork</h1>
+<p class="author">by <strong><span class="registered_user">Brown</span></strong><span class="interpunction">, </span>Saturday, June 13, 2020, 17:28 <span class="ago">(540 days ago)</span> <span class="op-link"><a href="30.html" title="click to go to the original posting by BlakeKeiller">@ BlakeKeiller</a></span><br />
+<span class="edited">edited by Brown, Saturday, June 13, 2020, 17:37</span></p>
+<p>This code isn't working for me. Sometimes the node dies right after starting, though I think I've tracked that problem down. (If it happens to anyone else, a cheap solution is to delete the file .proofgold/peers. More below.) Even when it does start and try to stake, it generates a private key for a fresh staking address and then complains that the private key is not in the wallet, leading it to delay staking for 10 minutes. I'm still trying to track down why this happens.</p>
+<p>About the peers problem, load_knownpeers in net.ml adds the same peer multiple times with different &quot;lasttm&quot; values. All of these get saved into the peers file when the node exits. When restarting it loads the copies of the peers again and continues adding more lasttm values. My peers file ended up with 40,000 entries, most of which were duplicates. This would lead it to try to connect to the same node repeatedly often ending up with my node dying. Hopefully it wasn't also killing the nodes it was repeatedly trying to connect to. The obvious solution is to use Hashtbl.replace when appropriate and I've done this. I'll post the code later.</p>
+<p>Edit: I've now identified the problem with the private key not being in the wallet. Yesterday when too many blocks were being staked, I tried adding 'stakewithrewards=0' to my proofgold.conf so that it wouldn't stake with the rewards. This doesn't seem to work, since with this parameter the new private key gets put into the &quot;nonstaking&quot; part of the wallet, but staking.ml only looks in the &quot;staking&quot; part of the wallet for the private key. The &quot;cheap&quot; fix here is not to try to use 'stakewithrewards=0'.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=31&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">498 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=30" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><a class="thread" href="30.html">Emergency Hard Fork</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p30" class="tail">2020-06-13, 14:50 <a href="index.php?mode=thread&amp;id=30" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><span class="currentreply">Emergency Hard Fork</span> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p31" class="tail">2020-06-13, 17:28</span>
+<ul class="reply">
+<li><a class="reply" href="32.html">Emergency Hard Fork</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p32" class="tail">2020-06-14, 17:05</span>
+</li>
+</ul></li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 2 users online (0 registered, 2 guests)<br />
+Forum time: 2021-12-05, 11:10 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

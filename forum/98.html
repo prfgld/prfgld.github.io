@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Performance Issues - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=98" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=98#p98" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Performance Issues</h1>
+<p class="author">by <strong><span class="mod registered_user" title="Moderator">BlakeKeiller</span></strong><span class="interpunction">, </span>Monday, October 19, 2020, 08:27 <span class="ago">(412 days ago)</span><br />
+<span class="edited">edited by BlakeKeiller, Monday, October 19, 2020, 08:32</span></p>
+<p>My proofgold nodes have gotten slower and consumed more memory as time goes on. I've tried to track down the main bottlenecks. It looks like one of the main bottlenecks is computing and saving new &quot;ctree elements&quot;. A ctree is a representation of (part of) a ledger tree containing all assets. It's theoretically a binary tree of depth 162. It's very sparse, of course, and the representation tries to avoid storing more than it needs to. A &quot;ctree element&quot; is a ctree of depth (at most) 9 giving a part of a full ctree, leaving deeper ctrees abbreviated by hashes.</p>
+<p>When processing a new block (technically, the delta part of the block), the ctree given in the block is extracted (this is easy), the ctree is expanded to consist only of elements using the elements in the local database (this turns out to take a long time), the expanded ctree is transformed by the transactions in the block. Then this transformed ctree is split into elements and the elements are saved into the database. I suspect it's also the case that the expanded ctree is sometimes using a lot of RAM, causing some of the memory issues.</p>
+<p>I'm experimenting with an alternative of saving &quot;atoms&quot; instead of &quot;elements&quot; -- where an &quot;atom&quot; is only one level deep instead of nine. After some debugging it turns out I still need to do some expansions to include leaves that are abbreviated by lower atoms, so it doesn't totally avoid needing to expand the ctree, but it definitely requires less expansion. It isn't clear yet if this helps.</p>
+<p>One thing that I think could help a lot would be if some of the code (hashing? serialization? database fetches? database writes? expanding ctrees?) could be written in a lower level language that are called from ocaml via an FFI. This goes against my inclination to keep things simple, but it's clear to me that alternatives to make things faster and less memory heavy need to be considered.</p>
+<p>Edit to add: Ctrees and ctree elements are described in Chapter 11 of the Qeditas Technical Documentation:</p>
+<p><a href="http://qeditas.org/docs/QeditasTechDoc.pdf">http://qeditas.org/docs/QeditasTechDoc.pdf</a></p>
+<p>Some details have changed since then, but it's mostly still accurate.</p>
+<p>Incidentally, if someone wants to do a low level implementation of some of the operations, the Qeditas Technical Documentation is probably essential.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=98&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">369 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=98" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">Performance Issues</span> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p98" class="tail">2020-10-19, 08:27 <a href="index.php?mode=thread&amp;id=98" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+</li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 3 users online (0 registered, 3 guests)<br />
+Forum time: 2021-12-05, 11:18 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

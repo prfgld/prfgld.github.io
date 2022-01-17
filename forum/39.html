@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Re: Anon Thread for June 6 2020 - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="first" href="5.html" />
+<link rel="prev" href="38.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=5" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=5#p39" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Re: Anon Thread for June 6 2020</h1>
+<p class="author">by <strong><span class="mod registered_user" title="Moderator">BlakeKeiller</span></strong><span class="interpunction">, </span>Sunday, June 21, 2020, 19:45 <span class="ago">(532 days ago)</span> <span class="op-link"><a href="38.html" title="click to go to the original posting by BlakeKeiller">@ BlakeKeiller</a></span></p>
+<p>Here is some lisp code that is able to convert some ivy proofs into the proofgold assembly format:</p>
+<p><a href="https://pastebin.com/KvnLidiz">https://pastebin.com/KvnLidiz</a></p>
+<p>It works on this simple example, which I had in the file ex1.in:</p>
+<p><a href="https://pastebin.com/Cj3FBmtw">https://pastebin.com/Cj3FBmtw</a></p>
+<p>To get the ivy proof I did this:</p>
+<p>prover9 -f ex1.in &gt; ex1.out</p>
+<p>prooftrans ivy -f ex1.out &gt; ex1.ivy</p>
+<p>To convert to a proofgold document, I loaded the lisp code and then did this:</p>
+<p>(ivy-to-pfg &quot;ex1.ivy&quot; &quot;ex1.pfg&quot;)</p>
+<p>This created a file ex1.pfg that contains the theorem and proof in the HOHF theory. The code can also make a document in the empty theory by first setting *theory* to nil.</p>
+<p>(setq *theory* nil)<br />
+(ivy-to-pfg &quot;ex1.ivy&quot; &quot;ex1empty.pfg&quot;)</p>
+<p>The lisp code does not yet handle equational reasoning (e.g., FLIP and PARAMOD) and may not handle the most general resolution cases, but it's a start.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=39&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">426 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=5" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><a class="thread" href="5.html">Anon Thread for June 6 2020</a> - 
+
+<strong class="registered_user">anon</strong>, 
+
+<span id="p5" class="tail">2020-06-06, 19:29 <a href="index.php?mode=thread&amp;id=5" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><a class="reply" href="36.html">Re: Anon Thread for June 6 2020</a> - 
+
+<strong></strong>, 
+
+<span id="p36" class="tail">2020-06-21, 07:19</span>
+<ul class="reply">
+<li><a class="reply" href="38.html">Re: Anon Thread for June 6 2020</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p38" class="tail">2020-06-21, 10:24</span>
+<ul class="reply">
+<li><span class="currentreply">Re: Anon Thread for June 6 2020</span> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p39" class="tail">2020-06-21, 19:45</span>
+</li>
+</ul></li>
+</ul></li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 1 users online (0 registered, 1 guests)<br />
+Forum time: 2021-12-05, 11:11 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

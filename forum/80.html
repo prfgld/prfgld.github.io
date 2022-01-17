@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Discussion about getting rid of random reward bounties - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="last" href="88.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=80" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=80#p80" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>Discussion about getting rid of random reward bounties</h1>
+<p class="author">by <strong><span class="registered_user">Brown</span></strong><span class="interpunction">, </span>Thursday, September 24, 2020, 12:01 <span class="ago">(437 days ago)</span><br />
+<span class="edited">edited by Brown, Thursday, September 24, 2020, 12:04</span></p>
+<p>The current Proofgold consensus algorithm sends half the block reward to the staker and puts the other half as a bounty on a random proposition in the HF theory. This is a kind of combination of proof of stake and delayed proof of work. Proving the random proposition (or its negation) can be done much later and the prover can use the bounty as stake to start staking.</p>
+<p>Proving random propositions and collecting these bounties uses the same infrastructure as proving (presumably) meaningful conjectures made by a person publishing a conjecture in a document. In the long run, proving meaningful conjectures and collecting those bounties seems like a more realistic use case for Proofgold.</p>
+<p>From discussions with people the past few months, my impression is that the random bounty propositions and corresponding delayed proof of work is just a distraction. For some reason people have trouble distinguishing between people proving conjectures and collecting bounties made by users of the system, and people proving the random conjectures created as part of the consensus algorithm. It's happened to me more than once that I'm trying to talk about ways the system could be used, and people go back to skepticism about proving random conjectures or about proof of work in general.</p>
+<p>On top of all of this, the last time I checked only 6 out of the roughly 2800 random conjectures have been proven or disproven. If the intention was to bring members of the automated theorem proving community into the Proofgold community by giving them a way to use their provers to claim many of the early generated coins, then this has failed so far. Maybe 3.5 months is not long enough to make a final judgment about this, but I think it's at least time to start considering abandoning that part of the project. I also know lots of people from the theorem proving community and, just for the record, here's my impression: the majority of people think cryptocurrencies are a joke or a scam (or both), a minority of people think it's a good way to make fiat but don't know (or care to know) much about the underlying technology, and a very small minority of people have the &quot;crypto vision.&quot; Even if more were interested in cryptocurrency, getting people to produce Automath/LF style proof terms from their ATPs is highly unrealistic. ATPs will likely be very useful to prove Proofgold conjectures, but this will be because of Proofgold developers or users modifying the ATPs to produce the needed proof output rather than the ATP developers doing it themselves.</p>
+<p>I do think it's important to do something to keep the distribution of the coin from being completely centralized in the hands of the few people staking, so I wouldn't suggest (or support) giving all of the block reward to the block creator.</p>
+<p>One simple alternative I've considered would be to give half the block reward (25 Proofgold bars) to the first litecoin address of the coinbase tx of the block confirming the previous burn transaction. Currently litecoin miners do receive some minor reward for helping secure Proofgold since the burn tx has a tx fee. Giving them Proofgold bars as well as a reward seems justifiable. Realistically they would likely ignore the bars (and likely not know they got them), but if someone with no bars wanted some (so they can use the system) they could either mine litecoin or contact litecoin miners and offer to buy some of their Proofgold bar rewards.</p>
+<p>I'm sure there are many other reasonable alternatives.</p>
+<p>For now I just want to start a discussion about changing this part of the Proofgold consensus algorithm. Obviously it would require a hard fork of the network, but I think Proofgold is still small enough to handle a hard fork without splitting.  If there's general agreement about what to do in October, then (for example) code could be written and released in November, and the hard fork could happen in December. This would mean that the first 6 months of the block rewards (about 100,000 bars) would still be on the random bounty conjectures waiting to be collected by provers in the future, but that no more random bounty conjectures would be created after this.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=80&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">437 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=80" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">Discussion about getting rid of random reward bounties</span> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p80" class="tail">2020-09-24, 12:01 <a href="index.php?mode=thread&amp;id=80" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><a class="reply" href="82.html">Discussion about getting rid of random reward bounties</a> - 
+
+<strong></strong>, 
+
+<span id="p82" class="tail">2020-09-24, 14:35</span>
+</li>
+
+<li><a class="reply" href="83.html">Discussion about getting rid of random reward bounties</a> - 
+
+<strong></strong>, 
+
+<span id="p83" class="tail">2020-09-24, 14:40</span>
+<ul class="reply">
+<li><a class="reply" href="84.html">Discussion about getting rid of random reward bounties</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p84" class="tail">2020-09-24, 19:53</span>
+</li>
+</ul></li>
+
+<li><a class="reply" href="85.html">Discussion about getting rid of random reward bounties</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p85" class="tail">2020-09-24, 19:54</span>
+<ul class="reply">
+<li><a class="reply" href="86.html">Discussion about getting rid of random reward bounties</a> - 
+
+<strong></strong>, 
+
+<span id="p86" class="tail">2020-09-24, 20:27</span>
+<ul class="reply">
+<li><a class="reply" href="88.html">Discussion about getting rid of random reward bounties</a> - 
+
+<strong class="registered_user">BlakeKeiller</strong>, 
+
+<span id="p88" class="tail">2020-09-26, 15:14</span>
+</li>
+</ul></li>
+</ul></li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 3 users online (0 registered, 3 guests)<br />
+Forum time: 2021-12-05, 11:15 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>

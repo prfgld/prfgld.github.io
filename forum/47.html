@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>CASC, Satallax and TPS Problems - Proofgold Forum</title>
+<meta name="description" content="yet another little forum" />
+<meta name="referrer" content="origin" />
+<meta name="referrer" content="same-origin" />
+<meta name="generator" content="my little forum 2.4.21" />
+<link rel="stylesheet" type="text/css" href="https://proofgold.org/forum/themes/default/style.min.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?mode=rss" /><link rel="top" href="./" />
+<link rel="last" href="48.html" />
+<link rel="search" href="index.php?mode=search" />
+<link rel="shortcut icon" href="https://proofgold.org/forum/themes/default/images/favicon.ico" />
+<link rel="canonical" href="https://proofgold.org/forum/index.php?mode=thread&amp;id=47" /><script src="https://proofgold.org/forum/index.php?mode=js_defaults&amp;t=" type="text/javascript" charset="utf-8"></script>
+<script src="https://proofgold.org/forum/js/main.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<!--[if IE]><div id="ie"><![endif]-->
+
+<div id="top">
+
+<div id="logo">
+<h1><a href="./" title="Forum index page">Proofgold Forum</a></h1>
+</div>
+
+<div id="nav">
+<ul id="usermenu">
+<li><a href="index.php?mode=login" title="Log in">Log in</a></li></ul>
+<form id="topsearch" action="index.php" method="get" title="Search messages" accept-charset="utf-8"><div><input type="hidden" name="mode" value="search" /><label for="search-input">Search:</label>&nbsp;<input id="search-input" type="text" name="search" value="Search..." /><!--&nbsp;<input type="image" src="templates//images/submit.png" alt="[&raquo;]" />--></div></form></div>
+</div>
+
+<div id="subnav">
+<div id="subnav-1"><a class="stronglink" href="index.php?mode=index" title="Forum index page">Back to the forum index</a>
+</div>
+<div id="subnav-2"><ul id="subnavmenu"><li><a class="openthread" href="index.php?mode=thread&amp;id=47#p47" title="Show this posting in the complete thread">Open in thread</a></li></ul>
+</div>
+</div>
+
+<div id="content">
+
+<div class="posting"><h1>CASC, Satallax and TPS Problems</h1>
+<p class="author">by <strong><span class="registered_user">Brown</span></strong><span class="interpunction">, </span>Tuesday, June 30, 2020, 20:19 <span class="ago">(523 days ago)</span><br />
+<span class="edited">edited by Brown, Tuesday, June 30, 2020, 20:27</span></p>
+<p>For those who don't know, I was the original author of the higher-order automated theorem prover Satallax ( <a href="http://satallaxprover.org/">http://satallaxprover.org/</a> ) about 10 years ago. Satallax has won the THF division of CASC most of the past 10 years. Michael Faerber has been the lead developer for the past several years. I'm currently working on an automated theorem prover for HOHF (to help prove Proofgold bounty conjectures) based on many of the same principles as Satallax. That's my justification for the rest of this post not quite being &quot;off-topic&quot; on the Proofgold forum, so please don't act like reddit and delete it.</p>
+<p>I watched some of Day 2 of the PAAR workshop today:</p>
+<p><a href="https://www.youtube.com/watch?v=NKpHFqhLRiQ&amp;list=PLl1dj5prwUJzoLccR-PWf1ujHk4w2wRPU&amp;index=4&amp;t=0s">https://www.youtube.com/watch?v=NKpHFqhLRiQ&amp;list=PLl1dj5prwUJzoLccR-PWf1ujHk4w2wRPU...</a></p>
+<p>After the first talk by Petar Vukmirović, Jasmin Blanchette made a comment about CASC, TPS problems and Satallax:</p>
+<p><a href="https://youtu.be/NKpHFqhLRiQ?list=PLl1dj5prwUJzoLccR-PWf1ujHk4w2wRPU&amp;t=2580">https://youtu.be/NKpHFqhLRiQ?list=PLl1dj5prwUJzoLccR-PWf1ujHk4w2wRPU&amp;t=2580</a></p>
+<p>I agree with a lot of it. Satallax has a strategy schedule and some of the strategies are vital to get some problems. And there are many TPS problems in the TPTP (about 1000). But I was unsure if Satallax really performs well on TPS problems, particularly in comparison with other provers. To satisfy my curiosity I collected the THF CASC results for the past 5 years and split them into TPS problems vs. non-TPS problems:</p>
+<p><a href="https://pastebin.com/SqqcnYKi">https://pastebin.com/SqqcnYKi</a></p>
+<p>I identified TPS problems by grepping for &quot;TPS problem&quot; in the THF files. Unless I'm missing something, leaving out TPS problems would not have a significant effect. It looks like the provers tend to be a little worse on TPS problems than non-TPS problems, but nothing radical.</p>
+<p>My impression has always been that a big part of the success of Satallax is that SAT solving is so &quot;easy&quot; now. Having a reasonable calculus that is instantiation based (no existential variables in the base calculus) allowed me to leverage the strength of the SAT solver. Part of being a &quot;reasonable calculus&quot; is not doing paramodulation style rewrites deeply inside of terms. It makes the calculus much less branching. But I've never been able to convince anyone that the way Satallax handles equational reasoning is a good idea, even if it is technically complete.</p>
+<p>If my memory isn't failing me, Petar said he's working on a Henkin completeness proof for a calculus that includes a choice operator. This might be easy (for the unfortunate reason that a rule might simulate a cut rule):</p>
+<p><a href="https://www.ps.uni-saarland.de/Publications/details/CutSim2009.html">https://www.ps.uni-saarland.de/Publications/details/CutSim2009.html</a></p>
+<p>Or it might be quite tricky. Julian Backes and I had a JAR paper in 2011 that proves a calculus (essentially the one Satallax uses) with choice Henkin complete. It might be helpful:</p>
+<p><a href="https://www.ps.uni-saarland.de/Publications/details/BackesBrown2011.html">https://www.ps.uni-saarland.de/Publications/details/BackesBrown2011.html</a></p>
+<p>It was nice to see people I used to know, people I don't know and even people who might have been in offices near me when speaking. Even if conferences aren't willing to let people participate anonymously, it's nice that this year there's a way to at least watch anonymously.</p>
+
+</div>
+<div class="posting-footer">
+<div class="reply"><a class="stronglink" href="index.php?mode=posting&amp;id=47&amp;back=entry" title="Reply to this message">Post reply</a></div>
+<div class="info">
+<span class="views">465 views</span></div>
+</div>
+
+<hr class="entryline" />
+<div class="complete-thread">
+<p class="left"><strong>Complete thread:</strong></p><p class="right">&nbsp;<a class="rss" href="index.php?mode=rss&amp;thread=47" title="RSS Feed of this thread">RSS Feed of thread</a></p>
+</div>
+
+<ul class="thread openthread">
+
+
+<li><span class="currentthread">CASC, Satallax and TPS Problems</span> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p47" class="tail">2020-06-30, 20:19 <a href="index.php?mode=thread&amp;id=47" title="Open whole thread"><img src="themes/default/images/complete_thread.png" title="Open whole thread" alt="[*]" width="11" height="11" /></a></span>
+<ul class="reply">
+<li><a class="reply" href="48.html">CASC, Satallax and TPS Problems</a> - 
+
+<strong class="registered_user">Brown</strong>, 
+
+<span id="p48" class="tail">2020-07-04, 10:38</span>
+</li>
+</ul></li>
+
+</ul>
+</div>
+
+<div id="footer">
+<div id="footer-1">203 Postings in 83 Threads, 6 registered users, 1 users online (0 registered, 1 guests)<br />
+Forum time: 2021-12-05, 11:12 (UTC)</div>
+<div id="footer-2">
+<ul id="footermenu">
+<li><a class="rss" href="index.php?mode=rss" title="RSS Feed of all new postings">RSS Postings</a> &nbsp;<a class="rss" href="index.php?mode=rss&amp;items=thread_starts" title="RSS Feed of thread starting postings only">RSS Threads</a></li><li><a href="index.php?mode=contact" title="E-mail to the forum administrator" rel="nofollow">Contact</a></li>
+</ul></div>
+</div>
+
+<div id="pbmlf"><a href="https://mylittleforum.net/">powered by my little forum</a></div>
+
+<!--[if IE]></div><![endif]-->
+
+</body>
+</html>
